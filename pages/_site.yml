@@ -1,0 +1,21 @@
+name: "americana-dados"
+navbar:
+  title: "Dossiê Americana"
+  left:
+    - text: "Início"
+      href: index.html
+    - text: "Demografia"
+      href: demografia.html
+    - text: "Eleições gerais 2018"
+      href: eleicoes_2018.html
+    - text: "Eleição municipal 2016"
+      href: eleicoes_2016.html
+exclude: ["data"]
+output_dir: "../docs"
+output:
+  html_document:
+    theme: flatly
+    highlight: textmate
+    include:
+      after_body: assets/footer.html
+    css: assets/styles.css
