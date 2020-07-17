@@ -17,6 +17,8 @@ library(rmarkdown)
 library(DT)
 library(leaflet)
 library(leaflet.extras)
+
+datatable_idioma <- "https://cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
 ```
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
@@ -70,7 +72,7 @@ df_gr_votos_partido <- df_gr_votos_partido_espectro %>% group_by(Sigla) %>% summ
 
 #paged_table(df_gr_votos_partido, options = list(rows.print = 10))
 
-datatable(df_gr_votos_partido_espectro[,c("Sigla", "Espectro", "Votos")], options = list(pageLength = 7, dom = 'tip', autoWidth = TRUE)) 
+datatable(df_gr_votos_partido_espectro[,c("Sigla", "Espectro", "Votos")], options = list(pageLength = 7, autoWidth = TRUE, language = list(url = datatable_idioma))) 
 
 ```
 
@@ -125,7 +127,7 @@ df_gr_votos_espectro
 
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
-datatable(df_gr_votos_espectro, options = list(autoWidth = TRUE))
+datatable(df_gr_votos_espectro, options = list(autoWidth = TRUE, language = list(url = datatable_idioma)))
 ```
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
@@ -175,7 +177,7 @@ df_gr_bairro <- sqldf(sql)
 
 datatable(df_gr_bairro[,c("nm_bairro", "AP", "Votos")], 
           colnames = c('Bairro' = 'nm_bairro'), 
-          options = list(autoWidth = TRUE))
+          options = list(autoWidth = TRUE, language = list(url = datatable_idioma)))
 
 ```
 
@@ -201,7 +203,7 @@ df_gr_bairro_partido <- sqldf(sql)
 
 datatable(df_gr_bairro_partido[,c("nm_bairro", "sigla", "Espectro", "AP", "Votos")], 
           colnames = c('Bairro' = 'nm_bairro', "Partido" = "sigla"), 
-          options = list(autoWidth = TRUE))
+          options = list(autoWidth = TRUE, language = list(url = datatable_idioma)))
 
 ```
 
@@ -230,7 +232,7 @@ df_gr_bairro_psol <- sqldf(sql)
 
 datatable(df_gr_bairro_psol[,c("nm_bairro", "AP", "Votos")], 
           colnames = c('Bairro' = 'nm_bairro'), 
-          options = list(autoWidth = TRUE))
+          options = list(autoWidth = TRUE, language = list(url = datatable_idioma)))
 
 ```
 
@@ -273,32 +275,55 @@ df_gr_locais_psol <- sqldf(sql)
 
 <br />
 
-O mapa a seguir é para dar uma dimensão mais visual dessa distribuição, basta clicar em cada ícone no mapa para visualizar as informações.
+O mapa a seguir é para dar uma dimensão mais visual dessa distribuição, basta clicar em cada ícone no mapa para visualizar as informações. 
+
+Obs: Escala do círculo *x50*, círculos mais escuros são locais com mais de 100 votos.
 
 <br />
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE, out.width = '100%'}
-mapa_votos <- function(df) {
-leaflet(data = df, width ='100%') %>% addTiles() %>%
-  addMarkers(~lng, ~lat, 
-             popup = paste(
+# mapa_votos <- function(df) {
+# leaflet(data = df, width ='100%') %>% addTiles() %>%
+#   addMarkers(~lng, ~lat, 
+#              popup = paste(
+#                 "<p><b>", as.character(df$ds_local), "</b> <br />",
+#                 "Bairro: ", as.character(df$nm_bairro), " </p>",
+#                 "<p><b>", as.character(df$Votos), " Votos</b> <br /> </p>"
+#              ), 
+#              label = paste("Votos: ", as.character(df$Votos)),
+#              labelOptions = labelOptions(noHide = F, direction = "bottom",
+#                                          style = list(
+#                                            "color" = "red",
+#                                            "font-family" = "serif",
+#                                            "font-style" = "bold",
+#                                            "box-shadow" = "3px 3px rgba(0,0,0,0.25)",
+#                                            "font-size" = "12px",
+#                                            "border-color" = "rgba(0,0,0,0.5)"
+#                                          )))
+# }
+# 
+# mapa_votos(df_gr_locais_psol)
+
+mapa_votos_circulo <- function(df){
+  # Ref: https://rstudio.github.io/leaflet/markers.html
+  
+  leaflet(df) %>% 
+    addTiles() %>%
+    addCircles(lng = ~lng, lat = ~lat, weight = 1, color=~ifelse(Votos > 100, '#340012', '#cc0048'),
+             #color=~ifelse((espectro == 'E' | espectro == 'EE' | espectro == 'CE'), "red", "blue"),
+      radius = ~sqrt(Votos) * 50, 
+      #stroke = TRUE, fillOpacity = 0.5,
+       popup = paste(
                 "<p><b>", as.character(df$ds_local), "</b> <br />",
                 "Bairro: ", as.character(df$nm_bairro), " </p>",
                 "<p><b>", as.character(df$Votos), " Votos</b> <br /> </p>"
-             ), 
-             label = paste("Votos: ", as.character(df$Votos)),
-             labelOptions = labelOptions(noHide = F, direction = "bottom",
-                                         style = list(
-                                           "color" = "red",
-                                           "font-family" = "serif",
-                                           "font-style" = "bold",
-                                           "box-shadow" = "3px 3px rgba(0,0,0,0.25)",
-                                           "font-size" = "12px",
-                                           "border-color" = "rgba(0,0,0,0.5)"
-                                         )))
+             ),
+    ) %>% 
+    addProviderTiles(providers$OpenMapSurfer.Roads) 
 }
+# OpenStreetMap.BZH
+mapa_votos_circulo(df_gr_locais_psol)
 
-mapa_votos(df_gr_locais_psol)
 ```
 
 <br />
@@ -329,7 +354,7 @@ df_gr_bairro_esquerda_e <- df_gr_bairro_esquerda[df_gr_bairro_esquerda$EspectroA
 
 datatable(df_gr_bairro_esquerda[,c("nm_bairro", "Espectro", "AP", "Votos")], 
           colnames = c('Bairro' = 'nm_bairro'), 
-          options = list(autoWidth = TRUE))
+          options = list(autoWidth = TRUE, language = list(url = datatable_idioma)))
 
 ```
 
