@@ -1,5 +1,6 @@
 ---
-title: "Eleições Gerais 2018 - Dep Estadual - Americana / SP"
+title: "Eleições Gerais 2018"
+subtitle: "Deputado Estadual - Americana / SP"
 ---
 
 ```{r setup, include=FALSE}
@@ -35,6 +36,8 @@ df_zona_secao_locais <- read.csv('data/eleicoes_2018/base_zona_secao_locais.csv'
 head(df_locais_votacao, n=5)
 ```
 
+<br />
+
 ## Introdução
 
 Nesta página estão contidas a visualização das informações das *Eleições gerais de 2018, para o cargo de deputado estadual cujos votos foram dados por eleitores e eleitoras da cidade de Americana / SP*. O objetivo é conferir aos interessados a possibilidade de análise de desempenho dos partidos no geral, e de forma mais direcionada do PSOL e do campo da Esquerda. 
@@ -47,7 +50,11 @@ Os dados são públicos e foram retirados do portal do TSE, tratados e organizad
 
 ---
 
-## Análise dos partidos
+## Análises
+
+<br />
+
+### Partidos
 
 Aqui teremos uma tabela mostrando a quantidade de votos que cada partido (e seus espectros políticos) recebeu na cidade, bem como os votos brancos e nulos.
 
@@ -93,7 +100,7 @@ df_gr_votos_partido %>%
 
 ---
 
-## Análise por espectro político
+### Espectro político
 
 Vamos agora ampliar a visão dos votos, demonstrando como os habitantes de Americana votaram em termos de espectro político.
 
@@ -156,9 +163,17 @@ df_gr_votos_partido_espectro %>%
 
 ---
 
-## Análise geral por bairros
+### Geral por bairros
 
 Agora vamos para uma análise territorial, tentando entender como os votos foram distribuídos pela cidade. Americana possui duas zonas eleitorais, e dentro de cada zona dezenas de seções, distribuídas em 58 escolas (dentre algumas faculdades) da cidade.
+
+Primeiro vamos observar as áreas de planejamento que dividem a cidade de Americana.
+
+<br />
+
+```{r echo=FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics("assets/mapa_das_aps.jpg")
+```
 
 Nesta tabela temos a soma de votos de todos partidos.
 
@@ -211,7 +226,7 @@ datatable(df_gr_bairro_partido[,c("nm_bairro", "sigla", "Espectro", "AP", "Votos
 
 ---
 
-## Análise de votos do PSOL por bairros
+### PSOL por bairros
 
 Agora vamos verificar as localidades onde o PSOL recebeu votos para deputado estadual.
 
@@ -330,7 +345,7 @@ mapa_votos_circulo(df_gr_locais_psol)
 
 ---
 
-## Análise de votos do espectro à esquerda por bairros
+### Espectro à esquerda por bairros
 
 <br />
 
@@ -460,17 +475,12 @@ highchart() %>%
 
 ```
 
-<br />
-
-**Áreas de planejamento de Americana.**
-
-- <a href="https://www.americana.sp.gov.br/americanaV6_index.php?it=38&a=perfil_areas_planejamento" target="_blank">Link da Prefeitura de Americana</a>
+---
 
 <br />
 
-```{r echo=FALSE, out.width="100%", fig.align='center'}
-knitr::include_graphics("assets/mapa_das_aps.jpg")
-```
+## Referências
 
+- <a href="https://www.americana.sp.gov.br/americanaV6_index.php?it=38&a=perfil_areas_planejamento" target="_blank">Prefeitura de Americana - Áreas de Planejamento</a>
 
-
+<br />

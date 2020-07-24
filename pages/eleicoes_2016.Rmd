@@ -1,5 +1,6 @@
 ---
-title: "Eleições Municipais 2016 - Vereadores - Americana / SP"
+title: "Eleições Municipais 2016"
+subtitle: "Vereadores - Americana / SP"
 ---
 
 ```{r setup, include=FALSE}
@@ -17,6 +18,7 @@ library(rmarkdown)
 library(DT)
 library(leaflet)
 library(leaflet.extras)
+library(ggplot2)
 
 datatable_idioma <- "https://cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
 ```
@@ -27,12 +29,15 @@ df_votacao <- read.csv('data/eleicoes_2016/base_votacao_eleicao_municipal_t1_201
 df_locais_votacao <- read.csv('data/eleicoes_2018/base_locais_votacao.csv', sep=';')
 df_partidos <- read.csv('data/eleicoes_2018/base_partidos.csv', sep = ';')
 df_zona_secao_locais <- read.csv('data/eleicoes_2018/base_zona_secao_locais.csv', sep=';')
+df_candidatos_votos <- read.csv('data/eleicoes_2016/base_candidatos_votos.csv', sep=';')
 ```
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 #str(df_locais_votacao)
 head(df_votacao, n=5)
 ```
+
+<br />
 
 ## Introdução
 
@@ -46,7 +51,11 @@ Os dados são públicos e foram retirados do portal do TSE, tratados e organizad
 
 ---
 
-## Análise dos partidos
+## Análises
+
+<br />
+
+### Partidos
 
 Aqui teremos uma tabela mostrando a quantidade de votos que cada partido (e seus espectros políticos) recebeu na cidade, bem como os votos brancos e nulos.
 
@@ -90,7 +99,7 @@ df_gr_votos_partido %>%
 
 ---
 
-## Análise por espectro político
+### Espectro político
 
 Vamos agora ampliar a visão dos votos, demonstrando como os habitantes de Americana votaram em termos de espectro político.
 
@@ -151,9 +160,17 @@ df_gr_votos_partido_espectro %>%
 
 ---
 
-## Análise geral por bairros
+### Geral por bairros
 
 Agora vamos para uma análise territorial, tentando entender como os votos foram distribuídos pela cidade. Americana possui duas zonas eleitorais, e dentro de cada zona dezenas de seções, distribuídas em 58 escolas (dentre algumas faculdades) da cidade.
+
+Primeiro vamos observar as áreas de planejamento que dividem a cidade de Americana.
+
+<br />
+
+```{r echo=FALSE, out.width="100%", fig.align='center'}
+knitr::include_graphics("assets/mapa_das_aps.jpg")
+```
 
 Nesta tabela temos a soma de votos de todos partidos.
 
@@ -204,12 +221,11 @@ datatable(df_gr_bairro_partido[,c("nm_bairro", "sigla", "Espectro", "AP", "Votos
 
 ```
 
-
 <br />
 
 ---
 
-## Análise de votos do espectro à esquerda por bairros
+### Espectro à esquerda por bairros
 
 Nestas visualizações a seguir, vamos somar os votos dos espectros à esquerda: **Extrema Esquerda, Esquerda e Centro Esquerda**.
 
@@ -321,8 +337,7 @@ mapa_votos_circulo <- function(df){
         "Bairro: ", as.character(df$nm_bairro), " </p>",
         "<p><b>", as.character(df$Votos), " Votos</b> <br /> </p>"
       ),
-    ) %>% 
-    addProviderTiles(providers$OpenMapSurfer.Roads) 
+    )
 }
 # OpenStreetMap.BZH
 mapa_votos_circulo(df_gr_locais_esquerda)
@@ -383,15 +398,56 @@ highchart() %>%
 
 <br />
 
-**Áreas de planejamento de Americana.**
+---
 
-- <a href="https://www.americana.sp.gov.br/americanaV6_index.php?it=38&a=perfil_areas_planejamento" target="_blank">Link da Prefeitura de Americana</a>
+### Votações por candidaturas
+
+Vamos analisar a distribução dos votos por candidatos, além da situação de cada um após a eleição.
 
 <br />
 
-```{r echo=FALSE, out.width="100%", fig.align='center'}
-knitr::include_graphics("assets/mapa_das_aps.jpg")
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+datatable(df_candidatos_votos[,c("nm_urna_candidato", "sigla", "ds_sit_tot_turno", "votos")], 
+          colnames = c(
+            'Candidato(a)' = 'nm_urna_candidato', 
+            'Partido' = 'sigla',
+            'Situação' = 'ds_sit_tot_turno',
+            'Votos' = 'votos'
+          ),
+          options = list(autoWidth = TRUE, language = list(url = datatable_idioma)))
 ```
 
+<br />
 
+No gráfico abaixo apenas os 19 vereadores eleitos para o mandato de 2017-2020.
 
+<br />
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+
+df_candidatos_eleitos <- df_candidatos_votos[df_candidatos_votos$cd_sit_tot_turno %in% c(1,2,3), ]
+
+df_candidatos_eleitos %>% 
+  arrange(desc(votos)) %>%
+  hchart(type="bar", hcaes(x=nm_urna_candidato, y=votos, name=espectro_completo)) %>%
+  hc_plotOptions(column = list(grouping = FALSE)) %>%
+  hc_tooltip(pointFormat = "Votos: {point.votos:,.0f} <br /> <b>{point.sigla}</b>", sort = FALSE, table = FALSE) %>% 
+  hc_title(text = 'Candidatos eleitos na eleição de 2016') %>%
+  hc_subtitle(text = "Fonte: TSE ") %>%
+  hc_yAxis(title = list(text = "Votos")) %>%
+  hc_xAxis(title = list(enabled=FALSE), categories= paste(df_candidatos_eleitos$nm_urna_candidato, '(', df_candidatos_eleitos$sigla, ')')) %>%
+  hc_add_theme(hc_theme_google()) %>%
+  hc_size(NULL, 600) %>%
+  hc_credits(enabled = TRUE, text = "CuriosiDados", href = "https://heavyrick.github.io/datascience/")
+
+```
+
+---
+
+<br />
+
+## Referências
+
+- <a href="https://www.americana.sp.gov.br/americanaV6_index.php?it=38&a=perfil_areas_planejamento" target="_blank">Prefeitura de Americana - Áreas de Planejamento</a>
+
+<br />

@@ -10,12 +10,22 @@ navbar:
         href: eleicoes_2018.html
       - text: "Eleiões Municipais - 2016"
         href: eleicoes_2016.html
+  right:
+  - text: "Indicadores"
+    menu:
+      - text: "IDM-H Geral"
+        href: idhm_geral.html
 exclude: ["data"]
 output_dir: "../docs"
 output:
   html_document:
-    theme: flatly
-    highlight: textmate
     include:
       after_body: assets/footer.html
     css: assets/styles.css
+    theme: flatly
+    highlight: textmate
+    df_print: paged
+    toc: true
+    toc_float:
+      collapsed: true
+      smooth_scroll: true

@@ -1,6 +1,5 @@
 ---
-title: "IDH-M"
-subtitle: "Americana / SP"
+title: "IDH-M - Americana / SP"
 ---
 
 ```{r setup, include=FALSE}
@@ -24,11 +23,7 @@ Ao longo do tempo surgem questionamentos quanto a capacidade do PIB de medir tal
 
 O IDH é uma medida média das conquistas de desenvolvimento humano básico em um país. Como todas as médias, o IDH mascara a desigualdade na distribuição do desenvolvimento humano entre a população no nível de país. Atualmente existem outros indicadores que medem outras questões socioeconomicas como: Índice de Desigualdade de Gênero (IDG), Índice de Pobreza Multidimensional (IPM) entre outros.
 
-<br />
-
-### O que mede o IDH?
-
-<br />
+**O que mede o IDH?**
 
 Os três pilares do IDM são: Saúde, educação e renda.
 
@@ -36,7 +31,7 @@ Os três pilares do IDM são: Saúde, educação e renda.
 - **Educação**: O acesso ao conhecimento é medido por: i) média de anos de educação de adultos, que é o número médio de anos de educação recebidos durante a vida por pessoas a partir de 25 anos; e ii) a expectativa de anos de escolaridade para crianças na idade de iniciar a vida escolar, que é o número total de anos de escolaridade que um criança na idade de iniciar a vida escolar pode esperar receber se os padrões prevalecentes de taxas de matrículas específicas por idade permanecerem os mesmos durante a vida da criança;
 - **Renda**: E o padrão de vida é medido pela Renda Nacional Bruta (RNB) per capita expressa em poder de paridade de compra (PPP) constante, em dólar, tendo 2005 como ano de referência.
 
-**O valor do indicador vai de 0 até 1, quando mais próximo de 0, pior, quando mais próximo de 1, melhor.**
+O valor do indicador vai de 0 até 1, quando mais próximo de 0, pior, quando mais próximo de 1, melhor.
 
 Para entender melhor o índice, ele possui faixas de análise:
 
@@ -45,7 +40,7 @@ Para entender melhor o índice, ele possui faixas de análise:
 - Alto entre 0,700 e 0,799;
 - Muito Alto Desenvolvimento Humano acima de 0,800. 
 
-*Os dados analisados são dos censos de 1991, 2000 e 2010.*
+*Os dados analisados são dos censos de 1991, 2000 e 2010.
 
 ---
 
@@ -91,7 +86,7 @@ df_idhm_americana <- df_idhm[df_idhm$id_cidade == 4724, ]
 df_idhm_americana
 ```
 
-## Análise de dados
+## Analisar os dados
 
 <div style="color:#006400; font-size:16px; margin: 24px 0px;"><b>
   Evolução IDH-M na cidade de Americana.
@@ -119,8 +114,6 @@ showTable(df_idhm_americana[, c('ano', 'idhm')])
 
 O IDH de Americana em 1991 está em 0,61 que é considerado médio; em 2000 ele passa para 0,74 que é considerado Alto; e em 2010 ele chega em 0,81 que está na faixa de Muito Alto.
 
-Quebrando o índice geral nos 3 pilares, mostra que todos os indicadores melhoram no passar do tempo, e que o indicador Longevidade é o melhor deles, o de renda é o que menos cresce e o de educação quase dobra, mas continua sendo o mais baixo deles.
-
 <br />
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
@@ -141,12 +134,16 @@ highchart() %>%
 
 <br />
 
+Quebrando o índice geral nos 3 pilares, mostra que todos os indicadores melhoram no passar do tempo, e que o indicador Longevidade é o melhor deles, o de renda é o que menos cresce e o de educação quase dobra, mas continua sendo o mais baixo deles.
 
-```{r, message=FALSE, warning=FALSE, include=FALSE}
+<br />
 
-# Cidade com menor idh
-# Cidade com maior idh
-# Média de SP
+Cidade com menor idh
+Cidade com maior idh
+Média de SP
+
+
+```{r}
 
 #min(df_idhm$idhm)
 
@@ -158,13 +155,10 @@ anos <- c('1991', '2000', '2010')
 #  mean(df_idhm[df_idhm$ano == '1991', c('idhm')])  
 #}
 
-idx <- which.max(df_idhm$idhm[df_idhm$ano == '2010'])
+df_idhm[df_idhm$ano == '1991' & which.min(df_idhm$idhm), ]
+df_idhm[df_idhm$ano == '1991' & which.max(df_idhm$idhm), ]
+mean(df_idhm[df_idhm$ano == '1991', c('idhm')])
 
-#df_idhm[c(369), ]
-
-df_idhm[idx, c('ano', 'nome_cidade', 'idhm')]
-#min(df_idhm[df_idhm$ano == '1991' & which.min(df_idhm$idhm), c('ano', 'nome_cidade', 'idhm')]$idhm)
-#df_idhm[df_idhm$ano == '1991' & which.max(df_idhm$idhm), c('ano', 'nome_cidade', 'idhm')]
 
 ```
 
