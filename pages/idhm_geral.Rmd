@@ -173,6 +173,7 @@ df_idhm[idx, c('ano', 'nome_cidade', 'idhm')]
 
 ## Referências e fontes de dados
 
+- <a href="http://www.atlasbrasil.org.br/2013/pt/" target="_blank">Atlas do Desenvolvimento Humano no Brasil</a>
 - <a href="https://qrius.com/sir-william-petty-the-inventor-of-economics/" target="_blank">Sir William Petty- The inventor of Economics</a>
 - <a href="https://www.scielo.br/scielo.php?script=sci_arttext&pid=S0101-31572019000200002" target="_blank">SciElo - Geopolítica e Desenvolvimento em Petty, Hamilton e List</a>
 - <a href="https://www.br.undp.org/content/brazil/pt/home/idh0/conceitos/o-que-e-o-idh.html" target="_blank">PNUD - O que é o IDH</a>

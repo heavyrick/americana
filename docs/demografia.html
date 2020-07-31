@@ -13,7 +13,7 @@
 
 <title>Demografia</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -27,6 +27,54 @@
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.14/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<script src="site_libs/proj4js-2.3.15/proj4.js"></script>
+<link href="site_libs/highcharts-7.0.1/css/motion.css" rel="stylesheet" />
+<link href="site_libs/highcharts-7.0.1/css/htmlwdgtgrid.css" rel="stylesheet" />
+<script src="site_libs/highcharts-7.0.1/highcharts.js"></script>
+<script src="site_libs/highcharts-7.0.1/highcharts-3d.js"></script>
+<script src="site_libs/highcharts-7.0.1/highcharts-more.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/stock.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/map.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/annotations.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/boost.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/data.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/drag-panes.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/drilldown.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/item-series.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/offline-exporting.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/overlapping-datalabels.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/exporting.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/export-data.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/funnel.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/heatmap.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/treemap.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/sankey.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/solid-gauge.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/streamgraph.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/sunburst.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/vector.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/wordcloud.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/xrange.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/tilemap.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/venn.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/gantt.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/timeline.js"></script>
+<script src="site_libs/highcharts-7.0.1/modules/parallel-coordinates.js"></script>
+<script src="site_libs/highcharts-7.0.1/plugins/grouped-categories.js"></script>
+<script src="site_libs/highcharts-7.0.1/plugins/motion.js"></script>
+<script src="site_libs/highcharts-7.0.1/plugins/multicolor_series.js"></script>
+<script src="site_libs/highcharts-7.0.1/custom/reset.js"></script>
+<script src="site_libs/highcharts-7.0.1/custom/symbols-extra.js"></script>
+<script src="site_libs/highcharts-7.0.1/custom/text-symbols.js"></script>
+<script src="site_libs/highchart-binding-0.7.0/highchart.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -380,6 +428,9 @@ div.tocify {
     <li>
       <a href="idhm_geral.html">IDM-H Geral</a>
     </li>
+    <li>
+      <a href="demografia.html">Demografia</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -392,11 +443,92 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Demografia</h1>
+<h3 class="subtitle">Americana / SP</h3>
 
 </div>
 
 
-
+<p><br /></p>
+<div id="introdução" class="section level2">
+<h2>Introdução</h2>
+<p>Nesta página teremos os dados demográficos da cidade de Americana.</p>
+<hr />
+</div>
+<div id="análises" class="section level2">
+<h2>Análises</h2>
+<p><br /></p>
+<div id="gênero-e-local" class="section level3">
+<h3>Gênero e local</h3>
+<p><br /></p>
+<p>Na tabela a seguir podemos verificar a evolução da população da cidade de Americana de acordo com os censos de 1991, 2000 e 2010.</p>
+<p><br /></p>
+<div id="htmlwidget-bef32b72adc10a652f6c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bef32b72adc10a652f6c">{"x":{"filter":"none","data":[["1","2","3"],[1991,2000,2010],[153840,182593,210638],[null,18.69,15.36]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>ano<\/th>\n      <th>População Total<\/th>\n      <th>Variação %<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"autoWidth":true,"dom":"","language":{"url":"//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"},"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0}],"order":[],"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p><br /></p>
+<p>Observando a tabela, vemos um aumento gradual na população da cidade, de 18% de 1991 até 2000 e de 15% até 2010. Nos gráficos a seguir temos a divisão da população por gênero, que é praticamente igual, com leve vantagem do gênero feminino. Depois temos a divisão da população entre os que vivem na área urbana e rural, que é totalmente discrepante, com praticamente 100% dos moradores vivendo na área urbana.</p>
+<p><br /></p>
+<div class="grid grid-pad">
+<div class="col-1-2 mobile-col-1-1">
+<div id="htmlwidget-84620950a5d67becb1ac" style="width:100%;height:350px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-84620950a5d67becb1ac">{"x":{"hc_opts":{"title":{"text":"População de Americana por gênero"},"yAxis":{"title":{"text":null},"max":209811},"credits":{"enabled":false},"exporting":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[77105,92258,107464],"name":"Feminino","color":"red"},{"data":[76735,90335,103174],"name":"Masculino","color":"green"}],"xAxis":{"categories":[1991,2000,2010]},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"}},"theme":{"chart":{"backgroundColor":"transparent"}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-2 mobile-col-1-1">
+<div id="htmlwidget-c692fd31334c14ca769d" style="width:100%;height:350px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c692fd31334c14ca769d">{"x":{"hc_opts":{"title":{"text":"População de Americana por local de residência"},"yAxis":{"title":{"text":null},"max":209811},"credits":{"enabled":false},"exporting":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[153653,182159,209654],"name":"Urbana","color":"gray"},{"data":[187,434,984],"name":"Rural","color":"orange"}],"xAxis":{"categories":[1991,2000,2010]},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"}},"theme":{"chart":{"backgroundColor":"transparent"}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p><br /></p>
+</div>
+<div id="estrutura-etária" class="section level3">
+<h3>Estrutura Etária</h3>
+<p>Agora vamos ver a evolução da população da cidade por faixa etária, dividindo-a por gênero.</p>
+<p><br /></p>
+<p>Em 1991 a população predominantemente se encontra na faixa do 0 aos 39 anos, em ambos os gêneros. O pico se dá na faixa dos 25-29 para o gênero feminino e dos 05-09 para o masculino. Nas faixas pós 45 anos, todas têm um número maior do gênero feminino, talvez evidenciando a expectativa de vida maior do grupo.</p>
+<p><br /></p>
+<div id="htmlwidget-c6675f4c6a96d8f8442c" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c6675f4c6a96d8f8442c">{"x":{"hc_opts":{"title":{"text":"População de Americana por faixa etária e gênero:  1991"},"yAxis":{"title":{"text":""},"labels":{"formatter":"function(){return Math.abs(this.value);}"}},"credits":{"enabled":false},"exporting":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"stacking":"normal"},"treemap":{"layoutAlgorithm":"squarified"},"column":{"grouping":false,"dataLabels":{"enabled":false},"enableMouseTracking":true}},"chart":{"type":"bar"},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"},"legend":{"enabled":true},"tooltip":{"shared":false,"formatter":"function () {\n            return '' + this.point.category + '<br/>' + \n            '<b>' + this.series.name + ': <\/b> ' + \n            Highcharts.numberFormat(Math.abs(this.point.y), 0);}"},"xAxis":{"reversed":false,"opposite":true,"categories":["0-4","05-09","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80+","0-4","05-09","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80+"]},"series":[{"data":[-6830,-7177,-7216,-6710,-7266,-7501,-6942,-5861,-4686,-3770,-3328,-2945,-2472,-1839,-1186,-728,-648],"name":"Feminino","color":"rgb(205,35,35)"},{"data":[7232,7826,7461,6671,7399,7596,6822,5929,4757,3506,3049,2560,2262,1570,1037,574,484],"name":"Masculino","color":"rgb(35,35,205)"}]},"theme":{"colors":["#0266C8","#F90101","#F2B50F","#00933B"],"chart":{"style":{"fontFamily":"Roboto","color":"#444444"}},"xAxis":{"gridLineWidth":1,"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"yAxis":{"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#C0C0C0","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":"Roboto","debug":false},"evals":["hc_opts.yAxis.labels.formatter","hc_opts.tooltip.formatter"],"jsHooks":[]}</script>
+<p><br /></p>
+<p>Em 2000 percebe-se um deslocamento da distribuição das idades, dessa vez com as faixas etárias dos 10 aos 44 anos como as de maior população. Ou seja, o gráfico anterior que se concentrava na base, agora desloca-se mais para o centro, evidenciando um envelhecimento da população. O pico de ambos os gêneros é da faixa dos 15 anos 19 anos.</p>
+<p><br /></p>
+<div id="htmlwidget-c8b6053c0f9a5d3671b5" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c8b6053c0f9a5d3671b5">{"x":{"hc_opts":{"title":{"text":"População de Americana por faixa etária e gênero:  2000"},"yAxis":{"title":{"text":""},"labels":{"formatter":"function(){return Math.abs(this.value);}"}},"credits":{"enabled":false},"exporting":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"stacking":"normal"},"treemap":{"layoutAlgorithm":"squarified"},"column":{"grouping":false,"dataLabels":{"enabled":false},"enableMouseTracking":true}},"chart":{"type":"bar"},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"},"legend":{"enabled":true},"tooltip":{"shared":false,"formatter":"function () {\n            return '' + this.point.category + '<br/>' + \n            '<b>' + this.series.name + ': <\/b> ' + \n            Highcharts.numberFormat(Math.abs(this.point.y), 0);}"},"xAxis":{"reversed":false,"opposite":true,"categories":["0-4","05-09","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80+","0-4","05-09","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80+"]},"series":[{"data":[-6178,-7036,-7675,-8301,-8220,-7570,-7828,-7919,-7251,-5872,-4582,-3520,-3138,-2617,-2059,-1324,-1168],"name":"Feminino","color":"rgb(205,35,35)"},{"data":[6767,7266,8142,8870,8043,7607,7511,7659,6930,5770,4419,3101,2714,2109,1634,984,809],"name":"Masculino","color":"rgb(35,35,205)"}]},"theme":{"colors":["#0266C8","#F90101","#F2B50F","#00933B"],"chart":{"style":{"fontFamily":"Roboto","color":"#444444"}},"xAxis":{"gridLineWidth":1,"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"yAxis":{"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#C0C0C0","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":"Roboto","debug":false},"evals":["hc_opts.yAxis.labels.formatter","hc_opts.tooltip.formatter"],"jsHooks":[]}</script>
+<p><br /></p>
+<p>Em 2010 o deslocamento segue para “cima”, e a distribuição das idades concentra-se dos 20 aos 54 anos. O crescimento na quantidade de idosos é bem perceptível, com a faixa dos 80 anos inclusive superior a faixa dos 75-79 anos. Ainda se percebe a diferença de um número maior de pessoas do gênero feminino nas idades superiores. A faixa etária mais populosa para ambos os gêneros é dos 25-29 anos.</p>
+<p><br /></p>
+<div id="htmlwidget-69c35a053a62542d6fb7" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-69c35a053a62542d6fb7">{"x":{"hc_opts":{"title":{"text":"População de Americana por faixa etária e gênero:  2010"},"yAxis":{"title":{"text":""},"labels":{"formatter":"function(){return Math.abs(this.value);}"}},"credits":{"enabled":false},"exporting":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"stacking":"normal"},"treemap":{"layoutAlgorithm":"squarified"},"column":{"grouping":false,"dataLabels":{"enabled":false},"enableMouseTracking":true}},"chart":{"type":"bar"},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"},"legend":{"enabled":true},"tooltip":{"shared":false,"formatter":"function () {\n            return '' + this.point.category + '<br/>' + \n            '<b>' + this.series.name + ': <\/b> ' + \n            Highcharts.numberFormat(Math.abs(this.point.y), 0);}"},"xAxis":{"reversed":false,"opposite":true,"categories":["0-4","05-09","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80+","0-4","05-09","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80+"]},"series":[{"data":[-5817,-6182,-7052,-7896,-8734,-9426,-9068,-8292,-8445,-8217,-7357,-5781,-4456,-3349,-2850,-2108,-2434],"name":"Feminino","color":"rgb(205,35,35)"},{"data":[6021,6192,7506,8127,9272,9600,8648,8069,7974,7748,6875,5408,4022,2698,2118,1483,1413],"name":"Masculino","color":"rgb(35,35,205)"}]},"theme":{"colors":["#0266C8","#F90101","#F2B50F","#00933B"],"chart":{"style":{"fontFamily":"Roboto","color":"#444444"}},"xAxis":{"gridLineWidth":1,"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"yAxis":{"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#C0C0C0","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":"Roboto","debug":false},"evals":["hc_opts.yAxis.labels.formatter","hc_opts.tooltip.formatter"],"jsHooks":[]}</script>
+<p><br /></p>
+<div id="taxa-de-envelhecimento-e-dependência" class="section level4">
+<h4>Taxa de envelhecimento e dependência</h4>
+<ul>
+<li><strong>taxa de envelhecimento</strong> : para calcular, fazemos a razão entre a população de 65 anos ou mais de idade em relação à população total da cidade;</li>
+<li><strong>razão de dependência</strong> : para calcular, pegamos todos os indivíduos com idade menor que 15 anos, e maiores de 64 anos, e dividimos pela população potencialmente ativa entre 15 e 64 anos.</li>
+</ul>
+<p><br /></p>
+<p>Observando os gráficos, vemos que a taxa de envelhecimento cresce progressivamente, na casa de 1,7%, enquanto que a taxa de dependência diminui em cerca de 6% ano após ano. Isso mostra que a população está envelhecendo, com mais cidadãos na faixa adulta (fora da faixa etária de dependência) e que o número de crianças e adolescentes diminuiu proporcionalmente na cidade.</p>
+<p><br /></p>
+<div class="grid grid-pad">
+<div class="col-1-2 mobile-col-1-1">
+<div id="htmlwidget-d263f8282a47a32c6a7c" style="width:100%;height:350px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d263f8282a47a32c6a7c">{"x":{"hc_opts":{"title":{"text":"População de Americana por taxa de envelhecimento"},"yAxis":{"title":{"text":null},"max":8.76052754013996},"credits":{"enabled":false},"exporting":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[5.24310972438898,6.95755039897477,8.76052754013996],"name":"Tx de envelhecimento","color":"purple"}],"xAxis":{"categories":["1991","2000","2010"]},"tooltip":{"pointFormat":"{point.y:,.2f}"},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"}},"theme":{"chart":{"backgroundColor":"transparent"}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-2 mobile-col-1-1">
+<div id="htmlwidget-3859d2f81b55dc8b14a1" style="width:100%;height:350px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3859d2f81b55dc8b14a1">{"x":{"hc_opts":{"title":{"text":"População de Americana por taxa de dependência"},"yAxis":{"title":{"text":null},"max":50.7762270660185},"credits":{"enabled":false},"exporting":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[50.7762270660185,43.9724029174059,37.2994817977382],"name":"Tx de dependência","color":"darkblue"}],"xAxis":{"categories":["1991","2000","2010"]},"tooltip":{"pointFormat":"{point.y:,.2f}"},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"}},"theme":{"chart":{"backgroundColor":"transparent"}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p><br /></p>
+<hr />
+</div>
+</div>
+</div>
+<div id="referências-e-fontes-de-dados" class="section level2">
+<h2>Referências e fontes de dados</h2>
+<ul>
+<li><a href="http://www.atlasbrasil.org.br/2013/pt/" target="_blank">Atlas do Desenvolvimento Humano no Brasil</a></li>
+</ul>
+<p><br /></p>
+</div>
 
 <p>PSOL - Americana / SP</p>
 

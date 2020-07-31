@@ -7,7 +7,7 @@ subtitle: "Deputado Estadual - Americana / SP"
 knitr::opts_chunk$set(echo = TRUE)
 ```
     
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-01, message=FALSE, warning=FALSE, echo=FALSE}
 #Bibliotecas
 library(data.table)
 library(sqldf)
@@ -22,7 +22,7 @@ library(leaflet.extras)
 datatable_idioma <- "https://cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
 ```
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-02, message=FALSE, warning=FALSE, echo=FALSE}
 # Carregar Dados
 df_locais_votacao <- read.csv('data/eleicoes_2018/base_locais_votacao.csv', sep=';')
 df_candidaturas <- read.csv('data/eleicoes_2018/base_candidatura_eleicao_geral_2018_dep_estadual.csv', sep=';')
@@ -31,7 +31,7 @@ df_votacao <- read.csv('data/eleicoes_2018/base_votacao_eleicao_geral_t1_2018_de
 df_zona_secao_locais <- read.csv('data/eleicoes_2018/base_zona_secao_locais.csv', sep=';')
 ```
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
+```{r e18-03, message=FALSE, warning=FALSE, include=FALSE}
 #str(df_locais_votacao)
 head(df_locais_votacao, n=5)
 ```
@@ -60,13 +60,13 @@ Aqui teremos uma tabela mostrando a quantidade de votos que cada partido (e seus
 
 <br />
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
+```{r e18-04, message=FALSE, warning=FALSE, include=FALSE}
 
 ### Análise dos bairros
 ### Análise das candidaturas
 ```
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-05, message=FALSE, warning=FALSE, echo=FALSE}
 
 sql <- "SELECT SUM(v.qt_votos) as Votos, p.nr_legenda as Legenda, p.sigla as Sigla, p.espectro as EspectroAbrev, p.espectro_completo as Espectro
         FROM df_partidos p
@@ -84,10 +84,10 @@ datatable(df_gr_votos_partido_espectro[,c("Sigla", "Espectro", "Votos")], option
 ```
 
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-06, message=FALSE, warning=FALSE, echo=FALSE}
 # Gráfico
 df_gr_votos_partido %>% 
-  hchart(type="column", hcaes(x= Sigla, y=total), name="Votos") %>%
+  hchart(type="column", hcaes(x=df_gr_votos_partido$Sigla, y=total), name="Votos") %>%
   hc_title(text = 'Votos para deputado estadual por partido') %>%
   hc_subtitle(text = "Fonte: TSE ") %>%
   hc_yAxis(title = list(text = "Votos")) %>%
@@ -106,7 +106,7 @@ Vamos agora ampliar a visão dos votos, demonstrando como os habitantes de Ameri
 
 <br />
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-07, message=FALSE, warning=FALSE, echo=FALSE}
 
 sql <- "SELECT 
           SUM(v.qt_votos) as Votos, p.nr_legenda as Legenda, p.sigla as Sigla, p.cd_espectro, p.espectro as EspectroAbrev, p.espectro_completo as Espectro
@@ -121,7 +121,7 @@ sqldf(sql) -> df_gr_votos_partido_espectro
 ```
 
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
+```{r e18-08, message=FALSE, warning=FALSE, include=FALSE}
 
 df_gr_votos_espectro <- df_gr_votos_partido_espectro %>% 
   group_by(Espectro) %>% 
@@ -133,11 +133,11 @@ df_gr_votos_espectro
 ```
 
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-09, message=FALSE, warning=FALSE, echo=FALSE}
 datatable(df_gr_votos_espectro, options = list(autoWidth = TRUE, language = list(url = datatable_idioma)))
 ```
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-10, message=FALSE, warning=FALSE, echo=FALSE}
 
 #colors <- c("#a13942", "#b57076", "#c9a6a9", "#717171", "#7b9cab", "#4b8dab", "#1c7fac")
 colors <- c("#717171", "#7b9cab", "#c9a6a9", "#4b8dab", "#b57076", "#1c7fac", "#a13942")
@@ -171,7 +171,7 @@ Primeiro vamos observar as áreas de planejamento que dividem a cidade de Americ
 
 <br />
 
-```{r echo=FALSE, out.width="100%", fig.align='center'}
+```{r e18-11, echo=FALSE, out.width="100%", fig.align='center'}
 knitr::include_graphics("assets/mapa_das_aps.jpg")
 ```
 
@@ -179,7 +179,7 @@ Nesta tabela temos a soma de votos de todos partidos.
 
 <br />
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-12, message=FALSE, warning=FALSE, echo=FALSE}
 
 sql <- "SELECT SUM(v.qt_votos) as Votos, l.cd_bairro, l.nm_bairro, l.area_planejamento as AP
         FROM df_votacao v
@@ -202,7 +202,7 @@ Agora vamos abrir os dados e dividí-los por partidos e espectros.
 
 <br />
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-13, message=FALSE, warning=FALSE, echo=FALSE}
 
 sql <- "SELECT 
           SUM(v.qt_votos) as Votos, l.cd_bairro, l.nm_bairro, l.area_planejamento as AP, v.nr_legenda, p.sigla,
@@ -232,7 +232,7 @@ Agora vamos verificar as localidades onde o PSOL recebeu votos para deputado est
 
 <br />
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-14, message=FALSE, warning=FALSE, echo=FALSE}
 
 sql <- "SELECT SUM(v.qt_votos) as Votos, l.cd_bairro, l.nm_bairro, l.area_planejamento as AP
         FROM df_votacao v
@@ -252,7 +252,7 @@ datatable(df_gr_bairro_psol[,c("nm_bairro", "AP", "Votos")],
 ```
 
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-15, message=FALSE, warning=FALSE, echo=FALSE}
 
 df_gr_bairro_psol %>% 
   arrange(desc(Votos)) %>%
@@ -273,7 +273,7 @@ df_gr_bairro_psol %>%
 
 
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-16, message=FALSE, warning=FALSE, echo=FALSE}
 
 sql <- "SELECT 
           SUM(v.qt_votos) as Votos, l.ds_local, l.latitude as lat, l.longitude as lng, l.nm_bairro, v.nr_legenda 
@@ -296,7 +296,7 @@ Obs: Escala do círculo *x50*, círculos mais escuros são locais com mais de 10
 
 <br />
 
-```{r message=FALSE, warning=FALSE, echo=FALSE, out.width = '100%'}
+```{r e18-17, message=FALSE, warning=FALSE, echo=FALSE, out.width = '100%'}
 # mapa_votos <- function(df) {
 # leaflet(data = df, width ='100%') %>% addTiles() %>%
 #   addMarkers(~lng, ~lat, 
@@ -349,7 +349,7 @@ mapa_votos_circulo(df_gr_locais_psol)
 
 <br />
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-18, message=FALSE, warning=FALSE, echo=FALSE}
 
 sql <- "SELECT SUM(v.qt_votos) as Votos, l.cd_bairro, l.nm_bairro, l.area_planejamento as AP, p.espectro as EspectroAbrev, p.espectro_completo as Espectro
         FROM df_votacao v
@@ -374,7 +374,7 @@ datatable(df_gr_bairro_esquerda[,c("nm_bairro", "Espectro", "AP", "Votos")],
 ```
 
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-19, message=FALSE, warning=FALSE, echo=FALSE}
 
 highchart() %>%
   hc_chart(type = "column") %>% 
@@ -398,7 +398,7 @@ E agora uma visualização mostrando apenas os votos dos espectros à esquerda p
 
 <br />
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-20, message=FALSE, warning=FALSE, echo=FALSE}
 
 df_gr_ap_esquerda <- df_gr_bairro_esquerda %>% group_by(AP, Espectro, EspectroAbrev) %>% summarise(Votos = sum(Votos))
 
@@ -406,13 +406,16 @@ df_gr_ap_esquerda_ee <- df_gr_ap_esquerda[df_gr_ap_esquerda$EspectroAbrev == 'EE
 df_gr_ap_esquerda_ce <- df_gr_ap_esquerda[df_gr_ap_esquerda$EspectroAbrev == 'CE', ]
 df_gr_ap_esquerda_e <- df_gr_ap_esquerda[df_gr_ap_esquerda$EspectroAbrev == 'E', ]
 
+#is.atomic(df_gr_bairro_esquerda)
+#df_gr_ap_esquerda_ee[['Votos']]
+
 highchart() %>%
   hc_chart(type = "column") %>%
   hc_xAxis(categories = unique(df_gr_ap_esquerda$AP)) %>%
   hc_yAxis(title = list(text = "Votos")) %>%
-  hc_add_series(name="Extrema Esquerda", df_gr_ap_esquerda_ee$Votos, color='#670606')%>%
-  hc_add_series(name="Esquerda", df_gr_ap_esquerda_e$Votos, color='#f21818')%>%
-  hc_add_series(name="Centro Esquerda", df_gr_ap_esquerda_ce$Votos, color='#f66060')%>%
+  hc_add_series(data=df_gr_ap_esquerda_ee$Votos, name="Extrema Esquerda", color='#670606')%>%
+  hc_add_series(data=df_gr_ap_esquerda_ce$Votos, name="Esquerda", color='#f21818')%>%
+  hc_add_series(data=df_gr_ap_esquerda_e$Votos, name="Centro Esquerda", color='#f66060')%>%
   hc_title(text = 'Votos para deputado estadual do espectro à Esquerda por AP') %>%
   hc_subtitle(text = "Fonte: TSE ") %>%
   hc_plotOptions(series=list(stacking='normal')) %>%
@@ -424,7 +427,7 @@ highchart() %>%
 
 ---
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
+```{r e18-21, message=FALSE, warning=FALSE, include=FALSE}
 
 sql <- "SELECT 
           SUM(v.qt_votos) as Votos, l.area_planejamento as AP, p.nr_legenda, p.Sigla, p.espectro as EspectroAbrev, 
@@ -455,7 +458,7 @@ df_gr_ap_partido_esquerda_pt <- df_gr_ap_partido_esquerda[df_gr_ap_partido_esque
 
 <br />
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r e18-22, message=FALSE, warning=FALSE, echo=FALSE}
 
 highchart() %>%
   hc_chart(type = "column") %>%

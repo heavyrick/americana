@@ -1,8 +1,353 @@
 ---
 title: "Demografia"
+subtitle: "Americana / SP"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+# Bibliotecas
+library(DT)
+library(highcharter)
+library(dplyr)
+require(plyr) 
+library(ggplot2)
+library(ggthemes)
+library(stringr)
+library(gridExtra)
+library(ggpubr)
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+df_idhm <- read.csv('data/atlasbrasil/base_econ_atlasbrasil_geral_idhm_2013_sp_campinas.csv', sep = ';')
+df_americana <- df_idhm[df_idhm$id_cidade == 4724, ]
+
+```
+
+<br />
+
+## Introdução
+
+Nesta página teremos os dados demográficos da cidade de Americana.
+
+---
+
+## Análises
+
+<br />
+
+### Gênero e local
+
+<br />
+
+Na tabela a seguir podemos verificar a evolução da população da cidade de Americana de acordo com os censos de 1991, 2000 e 2010.
+
+<br />
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+#df_americana[, c('ano', 'pesotot')]
+
+showTable <- function(df, ncolnames){
+  x <- df
+  rownames(x) <- NULL
+  datatable(x, colnames = ncolnames, options = list(
+      autoWidth = TRUE,
+      dom = '',
+      language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json')
+    ),
+  )  
+}
+
+df_americana[, c('ano', 'pesotot')] %>% 
+  arrange(desc(ano)) %>% 
+  mutate(pct_change = round((pesotot/lead(pesotot) - 1) * 100, 2)) %>% 
+  arrange(ano) -> df_americana_resumo
+
+showTable(df_americana_resumo, c('População Total' = 'pesotot', 'Variação %' = 'pct_change'))
+
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+#max(df_americana$pop)
+
+# df_americana[, c('ano', 'pesotot')] %>% 
+#   arrange(desc(ano)) %>% 
+#   mutate(pct_change = round((pesotot/lead(pesotot) - 1) * 100, 2)) %>% 
+#   arrange(ano)
+
+```
+
+<br />
+
+Observando a tabela, vemos um aumento gradual na população da cidade, de 18% de 1991 até 2000 e de 15% até 2010. Nos gráficos a seguir temos a divisão da população por gênero, que é praticamente igual, com leve vantagem do gênero feminino. Depois temos a divisão da população entre os que vivem na área urbana e rural, que é totalmente discrepante, com praticamente 100% dos moradores vivendo na área urbana.
+
+<br />
+
+```{r figures-side, fig.show="hold", out.width="50%", echo=FALSE, message=FALSE, warning=FALSE}
+
+highchart() %>%
+  hc_add_series(data = df_americana$mulhertot, name='Feminino', color='red') %>%
+  hc_add_series(data = df_americana$homemtot, name='Masculino', color='green') %>%
+  hc_xAxis(categories = df_americana$ano) %>% 
+  hc_yAxis(max = max(df_americana$pop)) %>%
+  hc_title(text = ('População de Americana por gênero')) %>%
+  hc_subtitle(text = ('Fonte: Atlas Brasil (2013)')) %>%
+  hc_size(400, 350) -> h1
+
+highchart() %>%
+  hc_add_series(data = df_americana$pesourb, name='Urbana', color='gray') %>%
+  hc_add_series(data = df_americana$pesorur, name='Rural', color='orange') %>%
+  hc_xAxis(categories = df_americana$ano) %>% 
+  hc_yAxis(max = max(df_americana$pop)) %>%
+  hc_title(text = ('População de Americana por local de residência')) %>%
+  hc_subtitle(text = ('Fonte: Atlas Brasil (2013)')) %>%
+  hc_size(NULL, 350) -> h2
+
+hw_grid(h1, h2)
+
+```
+
+<br />
+
+### Estrutura Etária
+
+Agora vamos ver a evolução da população da cidade por faixa etária, dividindo-a por gênero.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+# Vamos tratar os dados para criar um dataframe para o gráfico
+
+as.data.frame(t(df_americana[, c(
+'ano',
+'homem0a4', 'homem5a9', 'homem10a14', 'homem15a19', 'homem20a24', 'homem25a29', 'homem30a34', 'homem35a39', 'homem40a44',
+'homem45a49', 'homem50a54', 'homem55a59', 'homem60a64', 'homem65a69', 'homem70a74', 'homem75a79', 'homens80',
+'mulh0a4', 'mulh5a9', 'mulh10a14', 'mulh15a19', 'mulh20a24', 'mulh25a29', 'mulh30a34', 'mulh35a39', 'mulh40a44', 'mulh45a49',
+'mulh50a54', 'mulh55a59', 'mulh60a64', 'mulh65a69', 'mulh70a74', 'mulh75a79', 'mulher80')])) -> ts
+
+ts <- data.frame(names = row.names(ts), ts) # o indice da linha vira coluna
+colnames(ts) <- ts[1, ] # renomear as colunas
+ts <- ts[-1, ] # elimina a primeira linha que virou índice)
+names(ts)[names(ts) == "ano"] <- "faixa_etaria" # renomear indice da coluna
+rownames(ts) <- NULL # Zerar o índice das linhas
+
+# Atribuindo genero para as linhas
+ts[1:17, c('genero')] <- 'Masculino'
+ts[-(17:1), c('genero')] <- 'Feminino'
+
+#ts[1:17, ] # primeiros registros
+#ts[-(17:1), ] # últimos registros
+
+strings <- c('homem', 'homens', 'mulher', 'mulh', 'a')
+
+# Faz uma limpeza nos dados da coluna faixa etária
+limparColIdade <- function(df, vetor){
+  for(v in vetor){
+    if(v != 'a'){
+      df <- df %>% mutate(faixa_etaria = str_replace(faixa_etaria, v, ''))
+    #} else if(v == '5-9'){
+    #  df <- df %>% mutate(faixa_etaria = str_replace(faixa_etaria, v, '05-09'))      
+    } else {
+      df <- df %>% mutate(faixa_etaria = str_replace(faixa_etaria, v, '-'))
+    }
+  }
+  return(df)
+}
+
+limparColIdade(ts, strings) -> ts
+
+# Melhorar as labels numéricas para que a ordem das labels fiquem corretas
+
+strings <- c('5-9', '80')
+melhorLabelIdade <- function(df, vetor){
+  for(v in vetor){
+    if(v == '5-9'){
+      df <- df %>% mutate(faixa_etaria = str_replace(faixa_etaria, v, '05-09'))
+    } else if(v == '80'){
+      df <- df %>% mutate(faixa_etaria = str_replace(faixa_etaria, v, '80+'))
+    }
+  }
+  return(df)
+}
+
+melhorLabelIdade(ts, strings) -> ts
+
+```
+
+
+```{r, include=FALSE}
+
+hcPiramideEtariaGen <- function(df, coluna){
+  highchart() %>%
+  hc_chart(type = "bar") %>%
+  hc_title(text = (paste('População de Americana por faixa etária e gênero: ', coluna) )) %>%
+  hc_subtitle(text = ('Fonte: Atlas Brasil (2013)')) %>%
+  hc_yAxis(title = list(text = ""), 
+           labels = list(
+            formatter = JS("function(){return Math.abs(this.value);}")
+          )
+  ) %>%
+  hc_plotOptions(series=list(stacking='normal'), column = list(
+    grouping = FALSE,
+    dataLabels = list(enabled = FALSE),
+    enableMouseTracking = TRUE)) %>%
+  hc_legend(enabled = TRUE) %>%
+  hc_tooltip(
+          shared = FALSE,
+          formatter = JS("function () {
+            return '' + this.point.category + '<br/>' + 
+            '<b>' + this.series.name + ': </b> ' + 
+            Highcharts.numberFormat(Math.abs(this.point.y), 0);}")
+        ) %>%
+  hc_xAxis(reversed=FALSE, opposite=TRUE, categories = ts$faixa_etaria) %>%
+  hc_add_series(name="Feminino",color=c("rgb(205,35,35)"),data= df[df$genero == 'Feminino', coluna] * -1) %>%
+  hc_add_series(name="Masculino",color=c("rgb(35,35,205)"),data= df[df$genero == 'Masculino', coluna]) %>%
+  hc_size(NULL, 500) %>%
+  hc_add_theme(hc_theme_google())
+}
+
+```
+
+<br />
+
+Em 1991 a população predominantemente se encontra na faixa do 0 aos 39 anos, em ambos os gêneros. O pico se dá na faixa dos 25-29 para o gênero feminino e dos 05-09 para o masculino. Nas faixas pós 45 anos, todas têm um número maior do gênero feminino, talvez evidenciando a expectativa de vida maior do grupo.
+
+<br />
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+
+hcPiramideEtariaGen(ts, '1991')
+
+```
+
+<br />
+
+Em 2000 percebe-se um deslocamento da distribuição das idades, dessa vez com as faixas etárias dos 10 aos 44 anos como as de maior população. Ou seja, o gráfico anterior que se concentrava na base, agora desloca-se mais para o centro, evidenciando um envelhecimento da população. O pico de ambos os gêneros é da faixa dos 15 anos 19 anos.
+
+<br />
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+
+hcPiramideEtariaGen(ts, '2000')
+
+```
+
+<br />
+
+Em 2010 o deslocamento segue para "cima", e a distribuição das idades concentra-se dos 20 aos 54 anos. O crescimento na quantidade de idosos é bem perceptível, com a faixa dos 80 anos inclusive superior a faixa dos 75-79 anos. Ainda se percebe a diferença de um número maior de pessoas do gênero feminino nas idades superiores. A faixa etária mais populosa para ambos os gêneros é dos 25-29 anos.
+
+<br />
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+
+hcPiramideEtariaGen(ts, '2010')
+
+```
+
+<br />
+
+#### Taxa de envelhecimento e dependência
+
+- **taxa de envelhecimento** : para calcular, fazemos a razão entre a população de 65 anos ou mais de idade em relação à população total da cidade;
+- **razão de dependência** : para calcular, pegamos todos os indivíduos com idade menor que 15 anos, e maiores de 64 anos, e dividimos pela população potencialmente ativa entre 15 e 64 anos.
+
+
+```{r, include=FALSE}
+
+anos <- c('1991', '2000', '2010')
+
+# Calcular a taxa de envelhecimento
+
+taxaEnvelhecimento <- function(df_cidade, df_faixas_etarias, anos){
+  # Taxa de envelhecimento: (maiores de 65 anos / população total da cidade) * 100
+  taxa_envelhecimento <- c()
+  ano <- c()
+  
+  for(i in anos){
+    x <- (
+      sum(df_faixas_etarias[df_faixas_etarias$faixa_etaria %in% c('65-69', '70-74', '75-79', '80+') , i]) 
+        / 
+      df_cidade[df_cidade$ano == i, 'pesotot']
+    ) * 100 
+    taxa_envelhecimento <- append(x, taxa_envelhecimento)
+    ano <- append(i, ano)
+  }
+  
+  data_frame <- data.frame(ano, taxa_envelhecimento) # criar dataframe de saída
+  return(data_frame)
+}
+
+# Calcular a taxa de dependência
+
+taxaDependencia <- function(df_cidade, df_faixas_etarias, anos){
+  # Taxa de envelhecimento: (maiores de 65 anos / população total da cidade) * 100
+  taxa_dependencia <- c()
+  ano <- c()
+  
+  for(i in anos){
+    x <- (
+      sum(df_faixas_etarias[df_faixas_etarias$faixa_etaria %in% c('0-4', '05-09', '10-14', '65-69', '70-74', '75-79', '80+') , i]) 
+        / 
+      sum(df_faixas_etarias[!df_faixas_etarias$faixa_etaria %in% c('0-4', '05-09', '10-14', '65-69', '70-74', '75-79', '80+') , i])
+    ) * 100 
+    taxa_dependencia <- append(x, taxa_dependencia)
+    ano <- append(i, ano)
+  }
+  
+  data_frame <- data.frame(ano, taxa_dependencia) # criar dataframe de saída
+  return(data_frame)
+}
+
+
+```
+
+<br />
+
+Observando os gráficos, vemos que a taxa de envelhecimento cresce progressivamente, na casa de 1,7%, enquanto que a taxa de dependência diminui em cerca de 6% ano após ano. Isso mostra que a população está envelhecendo, com mais cidadãos na faixa adulta (fora da faixa etária de dependência) e que o número de crianças e adolescentes diminuiu proporcionalmente na cidade.
+
+<br />
+
+```{r figures-side2, fig.show="hold", out.width="50%", echo=FALSE, message=FALSE, warning=FALSE}
+
+pop_envelhecimento <- taxaEnvelhecimento(df_americana, ts, anos) %>% arrange(ano)
+pop_dependencia <- taxaDependencia(df_americana, ts, anos) %>% arrange(ano)
+
+highchart() %>%
+  hc_add_series(data = pop_envelhecimento$taxa_envelhecimento, name='Tx de envelhecimento', color='purple') %>%
+  hc_xAxis(categories = pop_envelhecimento$ano) %>% 
+  hc_yAxis(max = max(pop_envelhecimento$taxa_envelhecimento)) %>%
+  hc_tooltip(pointFormat = "{point.y:,.2f}") %>% 
+  hc_title(text = ('População de Americana por taxa de envelhecimento')) %>%
+  hc_subtitle(text = ('Fonte: Atlas Brasil (2013)')) %>%
+  hc_size(NULL, 350) -> h3
+
+highchart() %>%
+  #arrange(desc(pop_dependencia$ano)) %>%
+  hc_add_series(data = pop_dependencia$taxa_dependencia, name='Tx de dependência', color='darkblue') %>%
+  hc_xAxis(categories = pop_dependencia$ano) %>% 
+  hc_yAxis(max = max(pop_dependencia$taxa_dependencia)) %>%
+  hc_tooltip(pointFormat = "{point.y:,.2f}") %>%
+  hc_title(text = ('População de Americana por taxa de dependência')) %>%
+  hc_subtitle(text = ('Fonte: Atlas Brasil (2013)')) %>%
+  hc_size(NULL, 350) -> h4
+
+hw_grid(h3, h4)
+
+```
+
+<br />
+
+---
+
+## Referências e fontes de dados
+
+- <a href="http://www.atlasbrasil.org.br/2013/pt/" target="_blank">Atlas do Desenvolvimento Humano no Brasil</a>
+
+<br />
