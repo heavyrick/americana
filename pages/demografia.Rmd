@@ -7,7 +7,7 @@ subtitle: "Americana / SP"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r dem-01, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Bibliotecas
 library(DT)
@@ -22,10 +22,12 @@ library(ggpubr)
 ```
 
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r dem-02, echo=FALSE, message=FALSE, warning=FALSE}
 
 df_idhm <- read.csv('data/atlasbrasil/base_econ_atlasbrasil_geral_idhm_2013_sp_campinas.csv', sep = ';')
 df_americana <- df_idhm[df_idhm$id_cidade == 4724, ]
+
+datatable_idioma <- "https://cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
 
 ```
 
@@ -49,17 +51,17 @@ Na tabela a seguir podemos verificar a evolução da população da cidade de Am
 
 <br />
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r dem-03, echo=FALSE, message=FALSE, warning=FALSE}
 
 #df_americana[, c('ano', 'pesotot')]
 
 showTable <- function(df, ncolnames){
   x <- df
   rownames(x) <- NULL
-  datatable(x, colnames = ncolnames, options = list(
+  datatable(x, colnames = ncolnames, rownames= FALSE, options = list(
       autoWidth = TRUE,
       dom = '',
-      language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json')
+      language = list(url = datatable_idioma)
     ),
   )  
 }
@@ -73,7 +75,7 @@ showTable(df_americana_resumo, c('População Total' = 'pesotot', 'Variação %'
 
 ```
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r dem-04, echo=FALSE, message=FALSE, warning=FALSE}
 
 #max(df_americana$pop)
 
@@ -90,7 +92,7 @@ Observando a tabela, vemos um aumento gradual na população da cidade, de 18% d
 
 <br />
 
-```{r figures-side, fig.show="hold", out.width="50%", echo=FALSE, message=FALSE, warning=FALSE}
+```{r dem-05, fig.show="hold", out.width="50%", echo=FALSE, message=FALSE, warning=FALSE}
 
 highchart() %>%
   hc_add_series(data = df_americana$mulhertot, name='Feminino', color='red') %>%
@@ -121,7 +123,7 @@ hw_grid(h1, h2)
 Agora vamos ver a evolução da população da cidade por faixa etária, dividindo-a por gênero.
 
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r dem-06, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Vamos tratar os dados para criar um dataframe para o gráfico
 
@@ -182,7 +184,7 @@ melhorLabelIdade(ts, strings) -> ts
 ```
 
 
-```{r, include=FALSE}
+```{r dem-07, include=FALSE}
 
 hcPiramideEtariaGen <- function(df, coluna){
   highchart() %>%
@@ -221,7 +223,7 @@ Em 1991 a população predominantemente se encontra na faixa do 0 aos 39 anos, e
 
 <br />
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r dem-08, message=FALSE, warning=FALSE, echo=FALSE}
 
 hcPiramideEtariaGen(ts, '1991')
 
@@ -233,7 +235,7 @@ Em 2000 percebe-se um deslocamento da distribuição das idades, dessa vez com a
 
 <br />
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r dem-09, message=FALSE, warning=FALSE, echo=FALSE}
 
 hcPiramideEtariaGen(ts, '2000')
 
@@ -245,7 +247,7 @@ Em 2010 o deslocamento segue para "cima", e a distribuição das idades concentr
 
 <br />
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
+```{r dem-10, message=FALSE, warning=FALSE, echo=FALSE}
 
 hcPiramideEtariaGen(ts, '2010')
 
@@ -253,13 +255,13 @@ hcPiramideEtariaGen(ts, '2010')
 
 <br />
 
-#### Taxa de envelhecimento e dependência
+### Taxa de envelhecimento e dependência
 
 - **taxa de envelhecimento** : para calcular, fazemos a razão entre a população de 65 anos ou mais de idade em relação à população total da cidade;
 - **razão de dependência** : para calcular, pegamos todos os indivíduos com idade menor que 15 anos, e maiores de 64 anos, e dividimos pela população potencialmente ativa entre 15 e 64 anos.
 
 
-```{r, include=FALSE}
+```{r dem-11, include=FALSE}
 
 anos <- c('1991', '2000', '2010')
 
@@ -314,7 +316,7 @@ Observando os gráficos, vemos que a taxa de envelhecimento cresce progressivame
 
 <br />
 
-```{r figures-side2, fig.show="hold", out.width="50%", echo=FALSE, message=FALSE, warning=FALSE}
+```{r dem-12, fig.show="hold", out.width="50%", echo=FALSE, message=FALSE, warning=FALSE}
 
 pop_envelhecimento <- taxaEnvelhecimento(df_americana, ts, anos) %>% arrange(ano)
 pop_dependencia <- taxaDependencia(df_americana, ts, anos) %>% arrange(ano)
@@ -341,6 +343,58 @@ highchart() %>%
 hw_grid(h3, h4)
 
 ```
+<br />
+
+### Longevidade, mortalidade e fecundidade
+
+Antes de fazer a análise, é importante entender o que cada indicador está medindo:
+
+- A **Esperança de vida ao nascer** é o número médio de anos que as pessoas deverão viver a partir do nascimento, se permanecerem constantes ao longo da vida o nível e o padrão de mortalidade por idade prevalecentes no ano do Censo;
+- A **mortalidade infantil** é o número de crianças que não deverão sobreviver ao primeiro ano de vida em cada 1000 crianças nascidas vivas, e a **mortalidade infantil até 5 anos** é a probabilidade de morrer entre o nascimento e a idade exata de 5 anos, por 1000 crianças nascidas vivas;
+- A **fecundidade** é o número médio de filhos que uma mulher deverá ter ao terminar o período reprodutivo (15 a 49 anos de idade).
+
+<br />
+
+```{r dem-13, echo=FALSE, message=FALSE, warning=FALSE}
+
+df_long_mort <- as.data.frame(df_americana[, c('ano', 'espvida', 'fectot', 'mort1', 'mort5')])
+rownames(df_long_mort) <- NULL
+
+```
+
+
+```{r dem-14, echo=FALSE, message=FALSE, warning=FALSE}
+
+showTable <- function(df, ncolnames){
+  x <- df
+  rownames(x) <- NULL
+  datatable(x, colnames = ncolnames, options = list(
+      autoWidth = TRUE,
+      dom = '',
+      language = list(url = datatable_idioma)
+    ),
+  )  
+}
+
+df_americana[, c('ano', 'pesotot')] %>% 
+  arrange(desc(ano)) %>% 
+  mutate(pct_change = round((pesotot/lead(pesotot) - 1) * 100, 2)) %>% 
+  arrange(ano) -> df_americana_resumo
+
+showTable(df_long_mort, c(
+  'Ano' = 'ano',
+  'Esperança de vida ao nascer' = 'espvida', 
+  'Taxa de fecundidade total' = 'fectot',
+  'Mortalidade infantil' = 'mort1',
+  'Mortalidade até 5 anos de idade' = 'mort5'
+  ))
+
+```
+<br />
+
+A mortalidade infantil (mortalidade de crianças com menos de um ano de idade) no município passou de 16,4 óbitos por **mil nascidos vivos**, em 2000, para 10,8 óbitos por mil nascidos vivos, em 2010. Em 1991, a taxa era de 20,3. Já na UF, a taxa era de 13,9, em 2010, de 19,4, em 2000 e 27,3, em 1991. Entre 2000 e 2010, a taxa de mortalidade infantil no país caiu de 30,6 óbitos por mil nascidos vivos para 16,7 óbitos por mil nascidos vivos. Em 1991, essa taxa era de 44,7 óbitos por mil nascidos vivos.
+
+A esperança de vida ao nascer é o indicador utilizado para compor a dimensão Longevidade do Índice de Desenvolvimento Humano Municipal (IDHM). No município, a esperança de vida ao nascer cresceu 3,7 anos na última década, passando de 73,9 anos, em 2000, para 77,6 anos, em 2010. Em 1991, era de 71,1 anos. No Brasil, a esperança de vida ao nascer é de 73,9 anos, em 2010, de 68,6 anos, em 2000, e de 64,7 anos em 1991.
 
 <br />
 

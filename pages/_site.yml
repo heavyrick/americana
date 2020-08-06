@@ -17,6 +17,10 @@ navbar:
         href: idhm_geral.html
       - text: "Demografia"
         href: demografia.html
+      - text: "Educação"
+        href: educacao.html
+      - text: "Economia"
+        href: economia.html
 exclude: ["data"]
 output_dir: "../docs"
 output:

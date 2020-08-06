@@ -71,8 +71,6 @@ sql <- "SELECT SUM(v.qt_votos) as Votos, p.nr_legenda as Legenda, p.sigla as Sig
         ORDER BY Votos DESC"
 df_gr_votos_partido_espectro <- sqldf(sql)
 
-df_gr_votos_partido <- df_gr_votos_partido_espectro %>% group_by(Sigla) %>% summarise(total = sum(Votos)) %>% arrange(desc(total))
-
 datatable(df_gr_votos_partido_espectro[,c("Sigla", "Espectro", "Votos")], 
           options = list(
             pageLength = 7, 
@@ -83,16 +81,25 @@ datatable(df_gr_votos_partido_espectro[,c("Sigla", "Espectro", "Votos")],
 
 ```
 
-```{r e5, message=FALSE, warning=FALSE, echo=FALSE}
+```{r e5, echo=FALSE, message=FALSE, warning=TRUE}
 # Gráfico
-df_gr_votos_partido %>% 
-  hchart(type="column", hcaes(x=df_gr_votos_partido$Sigla, y=total), name="Votos") %>%
-  hc_title(text = 'Votos para vereador por partido') %>%
-  hc_subtitle(text = "Fonte: TSE ") %>%
+#names(df_gr_votos_partido) <- tolower(names(df_gr_votos_partido))
+
+df_gr_votos_partido_espectro %>% 
+                group_by(Sigla) %>% 
+                summarise(Votos = sum(Votos)) %>% 
+                arrange(desc(Votos)) -> df_gr_votos_partido16
+
+df_gr_votos_partido16 %>%
+  hchart(type="column", hcaes(x= df_gr_votos_partido16$Sigla, y= Votos), name="Votos") %>%
   hc_yAxis(title = list(text = "Votos")) %>%
   hc_xAxis(title = list(enabled=FALSE)) %>%
+  hc_title(text = 'Votos para vereador por partido') %>%
+  hc_subtitle(text = "Fonte: TSE") %>%
   hc_add_theme(hc_theme_google()) %>%
-  hc_size(NULL, 500)
+  hc_size(NULL, 500) %>%
+  hc_credits(enabled = TRUE, text = "CuriosiDados", href = "https://heavyrick.github.io/datascience/")
+
 ```
 
 <br />
@@ -349,7 +356,7 @@ mapa_votos_circulo(df_gr_locais_esquerda)
 ```{r e18, message=FALSE, warning=FALSE, include=FALSE}
 
 sql <- "SELECT 
-          SUM(v.qt_votos) as Votos, l.area_planejamento as AP, p.nr_legenda, p.Sigla, p.espectro as EspectroAbrev, 
+          SUM(v.qt_votos) as Votos, l.area_planejamento as AP, p.nr_legenda, p.Sigla as sigla, p.espectro as EspectroAbrev, 
           p.espectro_completo as Espectro
         FROM df_votacao v
         LEFT JOIN df_partidos p ON p.nr_legenda = v.nr_legenda
@@ -374,7 +381,7 @@ df_gr_ap_partido_esquerda_ppl <- df_gr_ap_partido_esquerda[df_gr_ap_partido_esqu
 ```
 
 
-```{r e19, message=FALSE, warning=FALSE, echo=FALSE}
+```{r e19, message=TRUE, warning=TRUE, echo=TRUE}
 
 highchart() %>%
   hc_chart(type = "column") %>%

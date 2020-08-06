@@ -75,7 +75,7 @@ sql <- "SELECT SUM(v.qt_votos) as Votos, p.nr_legenda as Legenda, p.sigla as Sig
         ORDER BY Votos DESC"
 df_gr_votos_partido_espectro <- sqldf(sql)
 
-df_gr_votos_partido <- df_gr_votos_partido_espectro %>% group_by(Sigla) %>% summarise(total = sum(Votos)) %>% arrange(desc(total))
+df_gr_votos_partido <- as.data.frame(df_gr_votos_partido_espectro %>% group_by(Sigla) %>% summarise(Votos = sum(Votos)) %>% arrange(desc(Votos)))
 
 #paged_table(df_gr_votos_partido, options = list(rows.print = 10))
 
@@ -86,14 +86,15 @@ datatable(df_gr_votos_partido_espectro[,c("Sigla", "Espectro", "Votos")], option
 
 ```{r e18-06, message=FALSE, warning=FALSE, echo=FALSE}
 # Gráfico
-df_gr_votos_partido %>% 
-  hchart(type="column", hcaes(x=df_gr_votos_partido$Sigla, y=total), name="Votos") %>%
+hchart(df_gr_votos_partido, type="column", hcaes(x= df_gr_votos_partido$Sigla, y= Votos), name="Votos") %>%
   hc_title(text = 'Votos para deputado estadual por partido') %>%
   hc_subtitle(text = "Fonte: TSE ") %>%
   hc_yAxis(title = list(text = "Votos")) %>%
   hc_xAxis(title = list(enabled=FALSE)) %>%
   hc_add_theme(hc_theme_ffx()) %>%
   hc_size(NULL, 500)
+
+
 ```
 
 <br />
@@ -402,9 +403,11 @@ E agora uma visualização mostrando apenas os votos dos espectros à esquerda p
 
 df_gr_ap_esquerda <- df_gr_bairro_esquerda %>% group_by(AP, Espectro, EspectroAbrev) %>% summarise(Votos = sum(Votos))
 
-df_gr_ap_esquerda_ee <- df_gr_ap_esquerda[df_gr_ap_esquerda$EspectroAbrev == 'EE', ]
-df_gr_ap_esquerda_ce <- df_gr_ap_esquerda[df_gr_ap_esquerda$EspectroAbrev == 'CE', ]
-df_gr_ap_esquerda_e <- df_gr_ap_esquerda[df_gr_ap_esquerda$EspectroAbrev == 'E', ]
+df_gr_ap_esquerda_ee <- as.data.frame(df_gr_ap_esquerda[df_gr_ap_esquerda$EspectroAbrev == 'EE', ])
+df_gr_ap_esquerda_ce <- as.data.frame(df_gr_ap_esquerda[df_gr_ap_esquerda$EspectroAbrev == 'CE', ])
+df_gr_ap_esquerda_e <- as.data.frame(df_gr_ap_esquerda[df_gr_ap_esquerda$EspectroAbrev == 'E', ])
+
+#df_gr_ap_esquerda_ee <- as.data.frame(df_gr_ap_esquerda_ee) # resolve o problema do atomic vector
 
 #is.atomic(df_gr_bairro_esquerda)
 #df_gr_ap_esquerda_ee[['Votos']]

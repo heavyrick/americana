@@ -1,0 +1,38 @@
+---
+title: "Economia"
+subtitle: "Americana / SP"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+# Bibliotecas
+library(DT)
+library(highcharter)
+library(dplyr)
+require(plyr)
+library(stringr)
+
+datatable_idioma <- "https://cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+```
+
+```{r echo=FALSE}
+
+df_idhm <- read.csv('data/atlasbrasil/base_econ_atlasbrasil_geral_idhm_2013_sp_campinas.csv', sep = ';')
+
+```
+
+<br />
+
+## Introdução
+
+Nesta página teremos os dados sobre economia na cidade de Americana.
+
+---
+
+## Análises
+
+<br />

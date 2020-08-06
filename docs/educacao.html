@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Educação</title>
+
+<script src="site_libs/jquery-3.5.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.14/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<script src="site_libs/proj4js-2.3.15/proj4.js"></script>
+<link href="site_libs/highcharts-8.1.2/css/motion.css" rel="stylesheet" />
+<script src="site_libs/highcharts-8.1.2/highcharts.js"></script>
+<script src="site_libs/highcharts-8.1.2/highcharts-3d.js"></script>
+<script src="site_libs/highcharts-8.1.2/highcharts-more.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/stock.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/map.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/annotations.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/data.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/drilldown.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/item-series.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/offline-exporting.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/overlapping-datalabels.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/exporting.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/export-data.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/funnel.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/heatmap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/treemap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/sankey.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/dependency-wheel.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/organization.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/solid-gauge.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/streamgraph.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/sunburst.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/vector.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/wordcloud.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/xrange.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/tilemap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/venn.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/gantt.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/timeline.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/parallel-coordinates.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/bullet.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/coloraxis.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/dumbbell.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/lollipop.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/series-label.js"></script>
+<script src="site_libs/highcharts-8.1.2/plugins/motion.js"></script>
+<script src="site_libs/highcharts-8.1.2/custom/reset.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/boost.js"></script>
+<script src="site_libs/highchart-binding-0.8.2/highchart.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="assets\styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Dossiê Americana</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Eleições
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="eleicoes_2018.html">Eleições Gerais - 2018</a>
+    </li>
+    <li>
+      <a href="eleicoes_2016.html">Eleiões Municipais - 2016</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Indicadores
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="idhm_geral.html">IDM-H Geral</a>
+    </li>
+    <li>
+      <a href="demografia.html">Demografia</a>
+    </li>
+    <li>
+      <a href="educacao.html">Educação</a>
+    </li>
+    <li>
+      <a href="economia.html">Economia</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Educação</h1>
+<h3 class="subtitle">Americana / SP</h3>
+
+</div>
+
+
+<p><br /></p>
+<div id="introdução" class="section level2">
+<h2>Introdução</h2>
+<p>Nesta página teremos os dados sobre a educação na cidade de Americana.</p>
+<hr />
+</div>
+<div id="análises" class="section level2">
+<h2>Análises</h2>
+<p><br /></p>
+<div id="expectativa-de-anos-de-estudo" class="section level3">
+<h3>Expectativa de anos de estudo</h3>
+<p>Este indicador mostra o número de anos de estudo que uma criança que inicia a vida escolar no ano de referência deverá completar ao atingir a idade de 18 anos. Podemos ver na tabela que a média de anos de estudo é de 10 anos, com pouca variação nas casas decimais entre os censos.</p>
+<p><br /></p>
+<p><div id="htmlwidget-ebeb6f911a6656d32f19" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ebeb6f911a6656d32f19">{"x":{"filter":"none","data":[[1991,2000,2010],[10.24,10.79,10.6]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Ano<\/th>\n      <th>Anos de estudo<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"autoWidth":false,"dom":"","language":{"url":"https://cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"},"columnDefs":[{"className":"dt-right","targets":[0,1]}],"order":[],"orderClasses":false}},"evals":[],"jsHooks":[]}</script> <br /></p>
+</div>
+<div id="analfabetismo" class="section level3">
+<h3>Analfabetismo</h3>
+<p>Analfabetismo aqui é entendido como a incapacidade de ler ou escrever sequer um bilhete simples. A taxa é calculada da seguinte forma: pega-se o total de pessoas analfabetas de uma faixa etária, e divide-se pela quantidade total de pessoas dessa mesma faixa etária, e multiplica-se por 100.</p>
+<ul>
+<li>Ex: (população analfabeta [11-14 anos] / população total [11-14 anos]) * 100</li>
+</ul>
+<p><br /></p>
+<div id="htmlwidget-a82e18f79db601de838f" style="width:100%;height:350px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a82e18f79db601de838f">{"x":{"hc_opts":{"chart":{"reflow":true,"height":350},"title":{"text":"Taxa de analfabetismo em Americana por faixa etária"},"yAxis":{"title":{"text":null},"max":9.72},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[1.49,0.87,0.93],"name":"11-14"},{"data":[1.25,0.66,0.79],"name":"15-17"},{"data":[1.53,0.83,0.53],"name":"18-24"},{"data":[9.72,5.52,3.26],"name":"25+"}],"xAxis":{"categories":[1991,2000,2010]},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"}},"theme":{"colors":["#0266C8","#F90101","#F2B50F","#00933B"],"chart":{"style":{"fontFamily":"Roboto","color":"#444444"}},"xAxis":{"gridLineWidth":1,"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"yAxis":{"gridLineColor":"#F3F3F3","lineColor":"#F3F3F3","minorGridLineColor":"#F3F3F3","tickColor":"#F3F3F3","tickWidth":1},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#C0C0C0","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":"Roboto","debug":false},"evals":[],"jsHooks":[]}</script>
+<p><br /></p>
+<p>Observando o gráfico abaixo, é possível perceber que a faixa etária com maior taxa de analfabetismo são das pessoas acima dos 25 anos. As faixas etárias de 11 a 17, ambas caem em média 0,6 de 1991 para 2000, mas sobem em até 0,1 em 2010. De 18 a 24 anos a taxa que era a terceira maior em 1991, vai caindo até se tornar a menor de todas em 2010 com apenas 0,53. A taxa acima dos 25 anos quase atinge os 10 pontos em 1991, cai pela metade em 2000 e cai até os 3,26 pontos em 2010, mas ainda assim é a maior taxa entre todas.</p>
+<p><br /></p>
+</div>
+<div id="atraso-na-formação" class="section level3 tabset tabset-fade tabset-pills">
+<h3>Atraso na formação</h3>
+<p>Este indicador mede o percentual de estudantes que tem algum atraso em sua formação, ou seja, se a idade do aluno é “compatível” com a série que ele está cursando.</p>
+<p>Estas são as fases que vamos investigar:</p>
+<ul>
+<li><strong>Ensino básico</strong>: todos os anos do chamado ensino regular (ensino fundamental + básico) que vai da idade de 6 até 17 anos;</li>
+<li><strong>Ensino fundamental</strong>: apenas os anos do ensino fundamental que vai dos 6 aos 14 anos;</li>
+<li><strong>Ensino médio</strong>: apenas os anos do ensino médio que vai dos 15 aos 17 anos.</li>
+</ul>
+<p>Clique nas abas para visualizar as análises.</p>
+<p><br /></p>
+<div id="nenhum-ano-de-atraso" class="section level4">
+<h4>Nenhum ano de atraso</h4>
+<p><br /></p>
+<ul>
+<li><strong>Sem atraso</strong>: os estudantes de uma fase de ensino que <strong>não tenham nenhum atraso</strong> com relação a idade-série, dividido pelo total de estudantes dessa mesma fase de ensino (vezes 100).</li>
+</ul>
+<p>Verificando os três gráficos, percebemos de maneira geral um aumento do número de estudantes que estão de acordo com as séries que deveriam estar.</p>
+<p>É importante lembrar das manobras do Estado, que durante os anos forçaram as escolas a passarem os alunos de ano, ainda que estes não tivessem condições de passar.</p>
+<p>Olhando para o ensino fundamental, olhando para os estudantes que não tem atraso em sua formação, em 1991 o percentual era de 64% e subiu para 82% em 2000, e caiu para 81% em 2010. O ensino médio subiu para 73% em 2000, e passou a frente em 2010, com 87%.</p>
+<p><br /></p>
+<div id="htmlwidget-d01e466ef07d1fb3f91e" style="width:100%;height:350px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d01e466ef07d1fb3f91e">{"x":{"hc_opts":{"chart":{"reflow":true,"height":350},"title":{"text":"Estudantes de Americana sem nenhum ano de atraso na formação"},"yAxis":{"title":{"text":null},"max":100},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[59.36,76.18,80.85],"name":"Básico","color":"#a1a1a1","dashStyle":"ShortDash"},{"data":[64.44,82.35,81.77],"name":"Fundamental","color":"dodgerblue"},{"data":[61.51,73.21,87.89],"name":"Médio","color":"orangered"}],"xAxis":{"categories":[1991,2000,2010]},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"}},"theme":{"colors":["#FF2700","#008FD5","#77AB43","#636464","#C4C4C4"],"chart":{"backgroundColor":"#F0F0F0","plotBorderColor":"#606063","style":{"fontFamily":"Roboto","color":"#3C3C3C"}},"title":{"align":"left","style":{"fontWeight":"bold"}},"subtitle":{"align":"left"},"xAxis":{"gridLineWidth":1,"gridLineColor":"#D7D7D8","labels":{"style":{"fontFamily":"Unica One, sans-serif","color":"#3C3C3C"}},"lineColor":"#D7D7D8","minorGridLineColor":"#505053","tickColor":"#D7D7D8","tickWidth":1,"title":{"style":{"color":"#A0A0A3"}}},"yAxis":{"gridLineColor":"#D7D7D8","labels":{"style":{"fontFamily":"Unica One, sans-serif","color":"#3C3C3C"}},"lineColor":"#D7D7D8","minorGridLineColor":"#505053","tickColor":"#D7D7D8","tickWidth":1,"title":{"style":{"color":"#A0A0A3"}}},"tooltip":{"backgroundColor":"rgba(0, 0, 0, 0.85)","style":{"color":"#F0F0F0"}},"legend":{"itemStyle":{"color":"#3C3C3C"},"itemHiddenStyle":{"color":"#606063"}},"credits":{"style":{"color":"#666"}},"labels":{"style":{"color":"#D7D7D8"}},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#C0C0C0","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":["Roboto","Unica+One"],"debug":false},"evals":[],"jsHooks":[]}</script>
+<p><br /></p>
+</div>
+<div id="um-ano-de-atraso" class="section level4">
+<h4>Um ano de atraso</h4>
+<p><br /></p>
+<ul>
+<li><strong>Um ano de atraso</strong>: os estudantes de uma fase de ensino que <strong>tenham um ano de atraso</strong> com relação a idade-série, dividido pelo total de estudantes dessa mesma fase de ensino (vezes 100).</li>
+</ul>
+<p>No caso dos estudantes com 1 ano de atraso, a porcentagem do ensino médio era quase de 30% em 1991, foi caindo até chegar em 9% em 2010. Do ensino fundamental esteve em 21% em 1991, caiu para 10% em 2000, mas subiu para 11% em 2010.</p>
+<p><br /></p>
+<div id="htmlwidget-9b9b2da63ce3041aca40" style="width:100%;height:350px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9b9b2da63ce3041aca40">{"x":{"hc_opts":{"chart":{"reflow":true,"height":350},"title":{"text":"Estudantes de Americana com um ano de atraso na formação"},"yAxis":{"title":{"text":null},"max":100},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[22.08,13.8,11.44],"name":"Básico","color":"#a1a1a1","dashStyle":"ShortDash"},{"data":[21.62,10.88,11.76],"name":"Fundamental","color":"dodgerblue"},{"data":[29.83,21.31,9.92],"name":"Médio","color":"orangered"}],"xAxis":{"categories":[1991,2000,2010]},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"}},"theme":{"colors":["#FF2700","#008FD5","#77AB43","#636464","#C4C4C4"],"chart":{"backgroundColor":"#F0F0F0","plotBorderColor":"#606063","style":{"fontFamily":"Roboto","color":"#3C3C3C"}},"title":{"align":"left","style":{"fontWeight":"bold"}},"subtitle":{"align":"left"},"xAxis":{"gridLineWidth":1,"gridLineColor":"#D7D7D8","labels":{"style":{"fontFamily":"Unica One, sans-serif","color":"#3C3C3C"}},"lineColor":"#D7D7D8","minorGridLineColor":"#505053","tickColor":"#D7D7D8","tickWidth":1,"title":{"style":{"color":"#A0A0A3"}}},"yAxis":{"gridLineColor":"#D7D7D8","labels":{"style":{"fontFamily":"Unica One, sans-serif","color":"#3C3C3C"}},"lineColor":"#D7D7D8","minorGridLineColor":"#505053","tickColor":"#D7D7D8","tickWidth":1,"title":{"style":{"color":"#A0A0A3"}}},"tooltip":{"backgroundColor":"rgba(0, 0, 0, 0.85)","style":{"color":"#F0F0F0"}},"legend":{"itemStyle":{"color":"#3C3C3C"},"itemHiddenStyle":{"color":"#606063"}},"credits":{"style":{"color":"#666"}},"labels":{"style":{"color":"#D7D7D8"}},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#C0C0C0","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":["Roboto","Unica+One"],"debug":false},"evals":[],"jsHooks":[]}</script>
+<p><br /></p>
+</div>
+<div id="dois-anos-ou-mais-de-atraso" class="section level4">
+<h4>Dois anos ou mais de atraso</h4>
+<p><br /></p>
+<ul>
+<li><strong>Dois anos ou mais de atraso</strong>: os estudantes de uma fase de ensino que <strong>tenham 2 anos ou mais de atraso</strong> com relação a idade-série, dividido pelo total de estudantes dessa mesma fase de ensino (vezes 100).</li>
+</ul>
+<p>No caso dos estudantes com dois anos ou mais de atraso, em ambos os casos caíram as ocorrências, o ensino fundamental em 1991 foi de quase 14% e chegou aos 6% em 2010, no ensino médio de 8% em 1991, chegou aos 2% em 2010.</p>
+<p><br /></p>
+<div id="htmlwidget-d1a0849e2bcb636e01d1" style="width:100%;height:350px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d1a0849e2bcb636e01d1">{"x":{"hc_opts":{"chart":{"reflow":true,"height":350},"title":{"text":"Estudantes de Americana com dois anos ou mais de atraso na formação"},"yAxis":{"title":{"text":null},"max":100},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[18.56,10.02,7.72],"name":"Básico","color":"#a1a1a1","dashStyle":"ShortDash"},{"data":[13.94,6.77,6.47],"name":"Fundamental","color":"dodgerblue"},{"data":[8.66,5.47,2.19],"name":"Médio","color":"orangered"}],"xAxis":{"categories":[1991,2000,2010]},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"}},"theme":{"colors":["#FF2700","#008FD5","#77AB43","#636464","#C4C4C4"],"chart":{"backgroundColor":"#F0F0F0","plotBorderColor":"#606063","style":{"fontFamily":"Roboto","color":"#3C3C3C"}},"title":{"align":"left","style":{"fontWeight":"bold"}},"subtitle":{"align":"left"},"xAxis":{"gridLineWidth":1,"gridLineColor":"#D7D7D8","labels":{"style":{"fontFamily":"Unica One, sans-serif","color":"#3C3C3C"}},"lineColor":"#D7D7D8","minorGridLineColor":"#505053","tickColor":"#D7D7D8","tickWidth":1,"title":{"style":{"color":"#A0A0A3"}}},"yAxis":{"gridLineColor":"#D7D7D8","labels":{"style":{"fontFamily":"Unica One, sans-serif","color":"#3C3C3C"}},"lineColor":"#D7D7D8","minorGridLineColor":"#505053","tickColor":"#D7D7D8","tickWidth":1,"title":{"style":{"color":"#A0A0A3"}}},"tooltip":{"backgroundColor":"rgba(0, 0, 0, 0.85)","style":{"color":"#F0F0F0"}},"legend":{"itemStyle":{"color":"#3C3C3C"},"itemHiddenStyle":{"color":"#606063"}},"credits":{"style":{"color":"#666"}},"labels":{"style":{"color":"#D7D7D8"}},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#C0C0C0","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":["Roboto","Unica+One"],"debug":false},"evals":[],"jsHooks":[]}</script>
+<p><br /></p>
+</div>
+</div>
+<div id="taxa-de-frequência-escolar" class="section level3">
+<h3>Taxa de frequência escolar</h3>
+<p>A taxa de frequência escolar é a razão da quantidade de estudantes de uma faixa etária que frequentam um dado nível escolar, dividida pela população total da cidade na mesma faixa etária, e multiplicando o resultado por 100.</p>
+<ul>
+<li>Pré-escola: crianças até 5 anos;</li>
+<li>Fundamental: 6 a 14 anos;</li>
+<li>Médio: 15 a 17 anos;</li>
+<li>Superior: 18 a 24 anos.</li>
+</ul>
+<p><br /></p>
+<div id="htmlwidget-81d52d3c7c3c43d7a039" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-81d52d3c7c3c43d7a039">{"x":{"hc_opts":{"chart":{"reflow":true,"height":500},"title":{"text":"Taxa de frequência dos estudantes por nível de ensino em Americana"},"yAxis":{"title":{"text":"valor","enabled":false,"labels":{"format":"{value: %b}"},"style":{"color":"#333333","fontFamily":"Arial"}},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":true},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}},"column":{"grouping":true}},"series":[{"name":1991,"data":[{"ano":1991,"ensino":"Pré-escola","valor":30.79,"y":30.79,"name":"Pré-escola"},{"ano":1991,"ensino":"Fundamental","valor":88.52,"y":88.52,"name":"Fundamental"},{"ano":1991,"ensino":"Médio","valor":26.4,"y":26.4,"name":"Médio"},{"ano":1991,"ensino":"Superior","valor":6.22,"y":6.22,"name":"Superior"}],"type":"column"},{"name":2000,"data":[{"ano":2000,"ensino":"Pré-escola","valor":62.42,"y":62.42,"name":"Pré-escola"},{"ano":2000,"ensino":"Fundamental","valor":93.81,"y":93.81,"name":"Fundamental"},{"ano":2000,"ensino":"Médio","valor":59.6,"y":59.6,"name":"Médio"},{"ano":2000,"ensino":"Superior","valor":11.61,"y":11.61,"name":"Superior"}],"type":"column"},{"name":2010,"data":[{"ano":2010,"ensino":"Pré-escola","valor":78.4,"y":78.4,"name":"Pré-escola"},{"ano":2010,"ensino":"Fundamental","valor":90.92,"y":90.92,"name":"Fundamental"},{"ano":2010,"ensino":"Médio","valor":62.88,"y":62.88,"name":"Médio"},{"ano":2010,"ensino":"Superior","valor":25.24,"y":25.24,"name":"Superior"}],"type":"column"}],"xAxis":{"type":"category","title":{"text":"Estados"},"style":{"color":"#333333","fontFamily":"Arial"}},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"}},"theme":{"colors":["#f1c40f","#2ecc71","#9b59b6","#e74c3c","#34495e","#3498db","#1abc9c","#f39c12","#d35400"],"chart":{"backgroundColor":"#ECF0F1"},"xAxis":{"gridLineDashStyle":"Dash","gridLineWidth":1,"gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"yAxis":{"gridLineDashStyle":"Dash","gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#34495e","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":"Arial","debug":false},"evals":[],"jsHooks":[]}</script>
+<p><br /></p>
+<p>Com exceção do ensino fundamental cuja frequência recuou de 2000 para 2010, todos os demais valores aumentaram entre os censos.</p>
+<p>Na pré-escola houve um aumento significativo, a taxa sai dos 30% em 1991, mais que dobra até 2000 e chega aos 78% em 2010.</p>
+<p>No nível fundamental a taxa aumenta de 1991 para 2000, chegando aos 93%, e cai 3 pontos em 2010.</p>
+<p>No ensino médio a taxa em 1991 é de apenas 26%, mais que dobra em 2000 e aumenta apenas 3 pontos até 2010, chegando em 62%, ou seja, com um terço da população na faixa dos 15 - 17 anos, não frequentando o ensino médio.</p>
+<p>No ensino superior a situação está bem mais aquém: o nível da população da cidade entre 18 e 24 anos <em>fora do ensino superior</em>, em 2010 é de 75% (3/4), em 2000 era de aproximadamente 90% e 1991 de 94%.</p>
+<p><br /></p>
+<hr />
+</div>
+</div>
+<div id="referências-e-fontes-de-dados" class="section level2">
+<h2>Referências e fontes de dados</h2>
+<ul>
+<li><a href="http://www.atlasbrasil.org.br/2013/pt/" target="_blank">Atlas do Desenvolvimento Humano no Brasil</a></li>
+</ul>
+<p><br /></p>
+</div>
+
+<p>PSOL - Americana / SP</p>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
