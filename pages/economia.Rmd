@@ -5,9 +5,17 @@ subtitle: "Americana / SP"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+knitr::knit_hooks$set(class = function(before, options, envir) {
+  if(before){
+    sprintf("<div class = '%s'>", options$class)
+  }else{
+    "</div>"
+  }
+})
 ```
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r econ-01, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Bibliotecas
 library(DT)
@@ -15,13 +23,17 @@ library(highcharter)
 library(dplyr)
 require(plyr)
 library(stringr)
+library(viridisLite)
 
 datatable_idioma <- "https://cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
 ```
 
-```{r echo=FALSE}
+```{r econ-02, echo=FALSE}
 
 df_idhm <- read.csv('data/atlasbrasil/base_econ_atlasbrasil_geral_idhm_2013_sp_campinas.csv', sep = ';')
+
+# df com os dados de Americana, com as colunas relacionadas a educação
+df_econ_americana <- df_idhm[df_idhm$id_cidade == 4724, c('ano', 'corte1', 'corte2', 'corte3', 'corte4', 'corte9', 'gini', 'pind', 'pindcri', 'pmpob', 'pmpobcri', 'ppob', 'ppobcri', 'pren10ricos', 'pren20', 'pren20ricos', 'pren40', 'pren60', 'pren80', 'prentrab', 'r1040', 'r2040', 'rdpc', 'rdpc1', 'rdpc10', 'rdpc2', 'rdpc3', 'rdpc4', 'rdpc5', 'rdpct', 'rind', 'rmpob', 'rpob', 'theil', 'cpr', 'emp', 'p_agro', 'p_com', 'p_constr', 'p_extr', 'p_formal', 'p_fund', 'p_med', 'p_serv', 'p_siup', 'p_super', 'p_transf', 'ren0', 'ren1', 'ren2', 'ren3', 'ren5', 'renocup', 't_ativ', 't_ativ1014', 't_ativ1517', 't_ativ1824', 't_ativ18m', 't_ativ2529', 't_des', 't_des1014', 't_des1517', 't_des1824', 't_des18m', 't_des2529', 'theiltrab', 'trabcc', 'trabpub', 'trabsc', 't_agua', 't_banagua', 't_dens', 't_lixo', 't_luz', 'agua_esgoto', 'parede', 't_crifundin_todos', 't_fora4a5', 't_fora6a14', 't_fundin_todos', 't_fundin_todos_mmeio', 't_fundin18minf', 't_m10a14cf', 't_m15a17cf', 't_mulchefefif014', 't_nestuda_ntrab_mmeio', 't_ocupdesloc_1', 't_rmaxidoso', 't_sluz')]
 
 ```
 
@@ -34,5 +46,180 @@ Nesta página teremos os dados sobre economia na cidade de Americana.
 ---
 
 ## Análises
+
+<br />
+
+### Renda
+
+Vamos começar olhando para dois indicadores, o GINI e o Theil [1]:
+
+- O **GINI**, que é um instrumento usado para medir o grau de concentração de renda. Ele aponta a diferença entre os rendimentos dos mais pobres e dos mais ricos. Numericamente, varia de 0 a 1, sendo que *0 representa a situação de total igualdade*, ou seja, todos têm a mesma renda, e o valor *1 significa completa desigualdade de renda*, ou seja, se uma só pessoa detém toda a renda do lugar;
+- Neste estudo o **Theil (L)** mede a desigualdade na distribuição de indivíduos segundo a renda domiciliar per capita, excluídos aqueles com renda domiciliar per capita nula. Quanto mais baixo o valor, menor a desigualdade, quanto maior o valor (que tende ao infinito), maior a desigualdade.
+
+<br />
+
+```{r econ-03, fig.show="hold", out.width="50%", echo=FALSE}
+
+df_gini <- df_econ_americana[, c('ano', 'gini')]
+
+highchart() %>%
+  hc_add_series(data= df_gini$gini, name= 'Gini', color='orange') %>%
+  hc_yAxis(max = 1, min=0) %>%
+  hc_xAxis(categories = df_gini$ano) %>%
+  hc_title(text = 'Índice de GINI em Americana') %>%
+  hc_subtitle(text = 'Fonte: Atlas Brasil (2013)') %>%
+  hc_add_theme(hc_theme_flat()) %>% 
+  hc_size(400, 350) -> ch_gini
+
+df_theil <- df_econ_americana[, c('ano', 'theil')]
+
+highchart() %>%
+  hc_add_series(data= df_theil $theil, name= 'Theil', color='darkmagenta') %>%
+  hc_yAxis(max = 1, min=0) %>%
+  hc_xAxis(categories = df_theil $ano) %>%
+  hc_title(text = 'Índice de Theil em Americana') %>%
+  hc_subtitle(text = 'Fonte: Atlas Brasil (2013)') %>%
+  hc_add_theme(hc_theme_flat()) %>% 
+  hc_size(NULL, 350) -> ch_theil
+
+hw_grid(ch_gini, ch_theil)
+
+```
+<br />
+
+O índice de GINI na cidade era de 0.47 em 1991 subiu apenas 0,02 em 2000 e voltou ao valor anterior em 2010. O índice de theil mostra a mesma tendência, com um aumento da desigualdade de 1991 para 2000, e uma diminuição até 2010.
+
+*Lembrando que em ambos os índices, quanto mais próximo de zero, menor é a desigualdade.*
+
+<br />
+
+Neste outro gráfico vemos a média da renda per capita dos indivíduos, do quinto mais pobre ao quinto mais rico segundo a renda domiciliar per capita (valores em reais de 01/08/2010). 
+
+A renda per capita é o somatório da renda de todos os indivíduos residentes em domicílios particulares permanentes, dividido pelo número total desses indivíduos. Uma linha com a renda per capita média total foi adicionada, para demonstrar a importância de não tomar tal medida como absoluta, pois sendo uma média geral, esconde as distinções existentes.
+
+<br />
+
+```{r econ-04, echo=FALSE}
+
+df_rdpc_quintils <- df_econ_americana[, c('ano', 'rdpc', 'rdpc1', 'rdpc2', 'rdpc3', 'rdpc4', 'rdpc5')]
+
+# adicionando os valores percentuais e absolutos de variação
+df_rdpc_quintils %>% 
+  arrange(desc(ano)) %>% 
+  mutate(rdpc_pc = (rdpc / lead(rdpc) - 1)) %>% 
+  mutate(rdpc1_pc = (rdpc1 / lead(rdpc1) - 1)) %>% 
+  mutate(rdpc2_pc = (rdpc2 / lead(rdpc2) - 1)) %>% 
+  mutate(rdpc3_pc = (rdpc3 / lead(rdpc3) - 1)) %>% 
+  mutate(rdpc4_pc = (rdpc4 / lead(rdpc4) - 1)) %>% 
+  mutate(rdpc5_pc = (rdpc5 / lead(rdpc5) - 1)) %>%
+  mutate(rdpc_dif = (rdpc - lead(rdpc))) %>% 
+  mutate(rdpc1_dif = (rdpc1 - lead(rdpc1) - 1)) %>% 
+  mutate(rdpc2_dif = (rdpc2 - lead(rdpc2) - 1)) %>% 
+  mutate(rdpc3_dif = (rdpc3 - lead(rdpc3) - 1)) %>% 
+  mutate(rdpc4_dif = (rdpc4 - lead(rdpc4) - 1)) %>% 
+  mutate(rdpc5_dif = (rdpc5 - lead(rdpc5) - 1)) %>%
+  arrange(ano) -> df_rdpc_quintils
+
+highchart() %>%
+  hc_add_series(data= df_rdpc_quintils$rdpc, name= 'Renda per capita', color='#a1a1a1', dashStyle = "ShortDash") %>%
+  hc_add_series(data= df_rdpc_quintils$rdpc1, name= 'Quinto mais pobre') %>%
+  hc_add_series(data= df_rdpc_quintils$rdpc2, name= '2º Quinto mais pobre') %>%
+  hc_add_series(data= df_rdpc_quintils$rdpc3, name= '3º Quinto mais pobre') %>%
+  hc_add_series(data= df_rdpc_quintils$rdpc4, name= '4º Quinto mais pobre') %>%
+  hc_add_series(data= df_rdpc_quintils$rdpc5, name= 'Quinto mais rico') %>%
+  hc_xAxis(categories = df_rdpc_quintils$ano) %>%
+  hc_tooltip(pointFormat = '<b>R$ {point.y:,.2f}</b>') %>%
+  hc_title(text = 'Distribuição de renda por frações da população de Americana') %>%
+  hc_subtitle(text = 'Fonte: Atlas Brasil (2013)') %>%
+  hc_add_theme(
+    hc_theme_merge(
+      hc_theme_flat(), 
+      hc_theme(colors = viridis(6, begin = 0, option = 'B')))
+    ) %>%
+  hc_size(NULL, 500)
+
+```
+
+<br />
+
+Observando o gráfico podemos ver que em todos os casos há um aumento da renda de um censo para outro. No caso da renda per capita geral, ela está bem próxima do 4ª quinto mais pobre (ou inversamente falando, do 2º quinto mais rico). 
+
+O quinto mais rico da cidade teve um aumento de renda em média de mais de **R$ 1.000,00 de 1991 até 2010**, enquanto que o quinto mais pobre teve um aumento de **R$ 87,96 no mesmo período**.
+
+<br />
+
+```{r econ-05, include=FALSE}
+
+# highchart() %>%
+#   hc_add_series(data= df_rdpc_quintils$rdpc1, name= 'Quinto mais pobre', yAxis = 0) %>%
+#   hc_add_series(data= df_rdpc_quintils$rdpc1_pc, name= '2º Quinto mais pobre %', yAxis = 1, dashStyle = "ShortDash") %>%
+#   hc_add_series(data= df_rdpc_quintils$rdpc2, name= 'Quinto mais pobre', yAxis = 0) %>%
+#   hc_add_series(data= df_rdpc_quintils$rdpc2_pc, name= '2ºQuinto mais pobre %', yAxis = 1, dashStyle = "ShortDash") %>%
+#   hc_yAxis_multiples(
+#      list(opposite = FALSE),
+#      list(offset = 0, height = "75%", showFirstLabel = FALSE, showLastLabel = FALSE, opposite = TRUE)
+#    ) %>% 
+#   hc_xAxis(categories = df_rdpc_quintils$ano) %>%
+#   hc_tooltip(pointFormat = '<b>{point.y:,.2f} %</b>') %>%
+#   hc_title(text = 'Distribuição de renda por frações da população de Americana') %>%
+#   hc_subtitle(text = 'Fonte: Atlas Brasil (2013)') %>%
+#   hc_add_theme(
+#     hc_theme_merge(
+#       hc_theme_flat(), 
+#       hc_theme(colors = viridis(6, begin = 0, option = 'B')))
+#     ) %>%
+#   hc_size(NULL, 500)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br />
+
+---
+
+## Mais informações
+
+[1]
+
+O índice de GINI é uma fórmula geral que mede as desigualdade de renda, e pode ser usado para fazer comparações genéricas entre populações distintas. Mas sua limitação é que não pode ser decomposto, portanto ele não informa de onde vem as desigualdades. Num exemplo simples, se pegarmos duas cidades com o mesmo valor do GINI, tudo que sabemos é o quanto há de desigualdade nelas, mas não sabemos o que causa tal desigualdade em uma, e na outra.
+
+O Theil, por outro lado, é mais facilmente decomposto em parcelas que, quando agregadas, fornecem o índice completo, ou seja, quando as rendas individuais são agrupadas segundo um critério qualquer, elas podem ser decompostas em uma medida de desigualdade entre os grupos e uma medida ponderada das medidas de desigualdade dentro dos grupos. É um índice mais complexo de ser calculado, porém, pode ser customizado, isto é, quem efetua o cálculo pode escolher as variáveis que serão usadas para medir a desigualdade e saber quais destas afetam mais ou menos o valor final.
+
+<br />
+
+## Referências e fontes de dados
+
+- <a href="http://www.atlasbrasil.org.br/2013/pt/" target="_blank">Atlas do Desenvolvimento Humano no Brasil</a>
+- <a href="https://ren.emnuvens.com.br/ren/article/view/319/269" target="_blank">Revista Economica do Nordeste - Decomposição do Índice Theil-T: uma Análise da Desigualdade de Renda para os Estados Nordestinosl</a>
 
 <br />

@@ -381,7 +381,7 @@ df_gr_ap_partido_esquerda_ppl <- df_gr_ap_partido_esquerda[df_gr_ap_partido_esqu
 ```
 
 
-```{r e19, message=TRUE, warning=TRUE, echo=TRUE}
+```{r e19, message=TRUE, warning=TRUE, echo=FALSE}
 
 highchart() %>%
   hc_chart(type = "column") %>%

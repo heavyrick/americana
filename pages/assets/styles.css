@@ -17,3 +17,8 @@ div.sourceCode {
 .page-footer{
   margin:16px 0px;
 }
+
+.blue-outline {
+   padding:0px 10px;
+   display: inline-block;
+}

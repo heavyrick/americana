@@ -13,7 +13,7 @@
 
 <title>Economia</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jquery-3.5.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -27,6 +27,49 @@
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="site_libs/proj4js-2.3.15/proj4.js"></script>
+<link href="site_libs/highcharts-8.1.2/css/motion.css" rel="stylesheet" />
+<script src="site_libs/highcharts-8.1.2/highcharts.js"></script>
+<script src="site_libs/highcharts-8.1.2/highcharts-3d.js"></script>
+<script src="site_libs/highcharts-8.1.2/highcharts-more.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/stock.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/map.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/annotations.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/data.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/drilldown.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/item-series.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/offline-exporting.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/overlapping-datalabels.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/exporting.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/export-data.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/funnel.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/heatmap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/treemap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/sankey.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/dependency-wheel.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/organization.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/solid-gauge.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/streamgraph.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/sunburst.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/vector.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/wordcloud.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/xrange.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/tilemap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/venn.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/gantt.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/timeline.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/parallel-coordinates.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/bullet.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/coloraxis.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/dumbbell.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/lollipop.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/series-label.js"></script>
+<script src="site_libs/highcharts-8.1.2/plugins/motion.js"></script>
+<script src="site_libs/highcharts-8.1.2/custom/reset.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/boost.js"></script>
+<script src="site_libs/highchart-binding-0.8.2/highchart.js"></script>
+<link href="site_libs/htmlwdgtgrid-0.0.9/htmlwdgtgrid.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -414,6 +457,54 @@ div.tocify {
 </div>
 <div id="análises" class="section level2">
 <h2>Análises</h2>
+<p><br /></p>
+<div id="renda" class="section level3">
+<h3>Renda</h3>
+<p>Vamos começar olhando para dois indicadores, o GINI e o Theil [1]:</p>
+<ul>
+<li>O <strong>GINI</strong>, que é um instrumento usado para medir o grau de concentração de renda. Ele aponta a diferença entre os rendimentos dos mais pobres e dos mais ricos. Numericamente, varia de 0 a 1, sendo que <em>0 representa a situação de total igualdade</em>, ou seja, todos têm a mesma renda, e o valor <em>1 significa completa desigualdade de renda</em>, ou seja, se uma só pessoa detém toda a renda do lugar;</li>
+<li>Neste estudo o <strong>Theil (L)</strong> mede a desigualdade na distribuição de indivíduos segundo a renda domiciliar per capita, excluídos aqueles com renda domiciliar per capita nula. Quanto mais baixo o valor, menor a desigualdade, quanto maior o valor (que tende ao infinito), maior a desigualdade.</li>
+</ul>
+<p><br /></p>
+<p><div class="grid grid-pad">
+<div class="col-1-2 mobile-col-1-1">
+<div id="htmlwidget-3ae9f7551f330f4f245d" style="width:100%;height:350px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3ae9f7551f330f4f245d">{"x":{"hc_opts":{"chart":{"reflow":true,"width":400,"height":350},"title":{"text":"Índice de GINI em Americana"},"yAxis":{"title":{"text":null},"max":1,"min":0},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[0.47,0.49,0.47],"name":"Gini","color":"orange"}],"xAxis":{"categories":[1991,2000,2010]},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"}},"theme":{"colors":["#f1c40f","#2ecc71","#9b59b6","#e74c3c","#34495e","#3498db","#1abc9c","#f39c12","#d35400"],"chart":{"backgroundColor":"#ECF0F1"},"xAxis":{"gridLineDashStyle":"Dash","gridLineWidth":1,"gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"yAxis":{"gridLineDashStyle":"Dash","gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#34495e","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="col-1-2 mobile-col-1-1">
+<div id="htmlwidget-21fc6378690fabb97892" style="width:100%;height:350px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-21fc6378690fabb97892">{"x":{"hc_opts":{"chart":{"reflow":true,"height":350},"title":{"text":"Índice de Theil em Americana"},"yAxis":{"title":{"text":null},"max":1,"min":0},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[0.37,0.42,0.38],"name":"Theil","color":"darkmagenta"}],"xAxis":{"categories":[1991,2000,2010]},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"}},"theme":{"colors":["#f1c40f","#2ecc71","#9b59b6","#e74c3c","#34495e","#3498db","#1abc9c","#f39c12","#d35400"],"chart":{"backgroundColor":"#ECF0F1"},"xAxis":{"gridLineDashStyle":"Dash","gridLineWidth":1,"gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"yAxis":{"gridLineDashStyle":"Dash","gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#34495e","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+</div> <br /></p>
+<p>O índice de GINI na cidade era de 0.47 em 1991 subiu apenas 0,02 em 2000 e voltou ao valor anterior em 2010. O índice de theil mostra a mesma tendência, com um aumento da desigualdade de 1991 para 2000, e uma diminuição até 2010.</p>
+<p><em>Lembrando que em ambos os índices, quanto mais próximo de zero, menor é a desigualdade.</em></p>
+<p><br /></p>
+<p>Neste outro gráfico vemos a média da renda per capita dos indivíduos, do quinto mais pobre ao quinto mais rico segundo a renda domiciliar per capita (valores em reais de 01/08/2010).</p>
+<p>A renda per capita é o somatório da renda de todos os indivíduos residentes em domicílios particulares permanentes, dividido pelo número total desses indivíduos. Uma linha com a renda per capita média total foi adicionada, para demonstrar a importância de não tomar tal medida como absoluta, pois sendo uma média geral, esconde as distinções existentes.</p>
+<p><br /></p>
+<div id="htmlwidget-5f77672a3f41e61a0388" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5f77672a3f41e61a0388">{"x":{"hc_opts":{"chart":{"reflow":true,"height":500},"title":{"text":"Distribuição de renda por frações da população de Americana"},"yAxis":{"title":{"text":null}},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[774.3,937.29,1161.68],"name":"Renda per capita","color":"#a1a1a1","dashStyle":"ShortDash"},{"data":[201.05,212.67,291.01],"name":"Quinto mais pobre"},{"data":[356.22,395.34,539.54],"name":"2º Quinto mais pobre"},{"data":[511.2,591.76,774.2],"name":"3º Quinto mais pobre"},{"data":[753.56,912.29,1142.32],"name":"4º Quinto mais pobre"},{"data":[2049.46,2574.42,3039.07],"name":"Quinto mais rico"}],"xAxis":{"categories":[1991,2000,2010]},"tooltip":{"pointFormat":"<b>R$ {point.y:,.2f}<\/b>"},"subtitle":{"text":"Fonte: Atlas Brasil (2013)"}},"theme":{"colors":["#000004FF","#420A68FF","#932667FF","#DD513AFF","#FCA50AFF","#FCFFA4FF"],"chart":{"backgroundColor":"#ECF0F1"},"xAxis":{"gridLineDashStyle":"Dash","gridLineWidth":1,"gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"yAxis":{"gridLineDashStyle":"Dash","gridLineColor":"#BDC3C7","lineColor":"#BDC3C7","minorGridLineColor":"#BDC3C7","tickColor":"#BDC3C7","tickWidth":1},"legendBackgroundColor":"rgba(0, 0, 0, 0.5)","background2":"#505053","dataLabelsColor":"#B0B0B3","textColor":"#34495e","contrastTextColor":"#F0F0F3","maskColor":"rgba(255,255,255,0.3)"},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<p><br /></p>
+<p>Observando o gráfico podemos ver que em todos os casos há um aumento da renda de um censo para outro. No caso da renda per capita geral, ela está bem próxima do 4ª quinto mais pobre (ou inversamente falando, do 2º quinto mais rico).</p>
+<p>O quinto mais rico da cidade teve um aumento de renda em média de mais de <strong>R$ 1.000,00 de 1991 até 2010</strong>, enquanto que o quinto mais pobre teve um aumento de <strong>R$ 87,96 no mesmo período</strong>.</p>
+<p><br /></p>
+<p><br /></p>
+<hr />
+</div>
+</div>
+<div id="mais-informações" class="section level2">
+<h2>Mais informações</h2>
+<p>[1]</p>
+<p>O índice de GINI é uma fórmula geral que mede as desigualdade de renda, e pode ser usado para fazer comparações genéricas entre populações distintas. Mas sua limitação é que não pode ser decomposto, portanto ele não informa de onde vem as desigualdades. Num exemplo simples, se pegarmos duas cidades com o mesmo valor do GINI, tudo que sabemos é o quanto há de desigualdade nelas, mas não sabemos o que causa tal desigualdade em uma, e na outra.</p>
+<p>O Theil, por outro lado, é mais facilmente decomposto em parcelas que, quando agregadas, fornecem o índice completo, ou seja, quando as rendas individuais são agrupadas segundo um critério qualquer, elas podem ser decompostas em uma medida de desigualdade entre os grupos e uma medida ponderada das medidas de desigualdade dentro dos grupos. É um índice mais complexo de ser calculado, porém, pode ser customizado, isto é, quem efetua o cálculo pode escolher as variáveis que serão usadas para medir a desigualdade e saber quais destas afetam mais ou menos o valor final.</p>
+<p><br /></p>
+</div>
+<div id="referências-e-fontes-de-dados" class="section level2">
+<h2>Referências e fontes de dados</h2>
+<ul>
+<li><a href="http://www.atlasbrasil.org.br/2013/pt/" target="_blank">Atlas do Desenvolvimento Humano no Brasil</a></li>
+<li><a href="https://ren.emnuvens.com.br/ren/article/view/319/269" target="_blank">Revista Economica do Nordeste - Decomposição do Índice Theil-T: uma Análise da Desigualdade de Renda para os Estados Nordestinosl</a></li>
+</ul>
 <p><br /></p>
 </div>
 

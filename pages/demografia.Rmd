@@ -52,9 +52,6 @@ Na tabela a seguir podemos verificar a evolução da população da cidade de Am
 <br />
 
 ```{r dem-03, echo=FALSE, message=FALSE, warning=FALSE}
-
-#df_americana[, c('ano', 'pesotot')]
-
 showTable <- function(df, ncolnames){
   x <- df
   rownames(x) <- NULL
@@ -63,12 +60,12 @@ showTable <- function(df, ncolnames){
       dom = '',
       language = list(url = datatable_idioma)
     ),
-  )  
+  ) %>% formatPercentage('Variação %', 2)  
 }
 
 df_americana[, c('ano', 'pesotot')] %>% 
   arrange(desc(ano)) %>% 
-  mutate(pct_change = round((pesotot/lead(pesotot) - 1) * 100, 2)) %>% 
+  mutate(pct_change = (pesotot/lead(pesotot) - 1)) %>% 
   arrange(ano) -> df_americana_resumo
 
 showTable(df_americana_resumo, c('População Total' = 'pesotot', 'Variação %' = 'pct_change'))
@@ -98,7 +95,7 @@ highchart() %>%
   hc_add_series(data = df_americana$mulhertot, name='Feminino', color='red') %>%
   hc_add_series(data = df_americana$homemtot, name='Masculino', color='green') %>%
   hc_xAxis(categories = df_americana$ano) %>% 
-  hc_yAxis(max = max(df_americana$pop)) %>%
+  hc_yAxis(max = max(df_americana$pop), min=0) %>%
   hc_title(text = ('População de Americana por gênero')) %>%
   hc_subtitle(text = ('Fonte: Atlas Brasil (2013)')) %>%
   hc_size(400, 350) -> h1
@@ -325,7 +322,7 @@ highchart() %>%
   hc_add_series(data = pop_envelhecimento$taxa_envelhecimento, name='Tx de envelhecimento', color='purple') %>%
   hc_xAxis(categories = pop_envelhecimento$ano) %>% 
   hc_yAxis(max = max(pop_envelhecimento$taxa_envelhecimento)) %>%
-  hc_tooltip(pointFormat = "{point.y:,.2f}") %>% 
+  hc_tooltip(pointFormat = "<b>{point.y:,.2f}%</b>") %>% 
   hc_title(text = ('População de Americana por taxa de envelhecimento')) %>%
   hc_subtitle(text = ('Fonte: Atlas Brasil (2013)')) %>%
   hc_size(NULL, 350) -> h3
@@ -335,7 +332,7 @@ highchart() %>%
   hc_add_series(data = pop_dependencia$taxa_dependencia, name='Tx de dependência', color='darkblue') %>%
   hc_xAxis(categories = pop_dependencia$ano) %>% 
   hc_yAxis(max = max(pop_dependencia$taxa_dependencia)) %>%
-  hc_tooltip(pointFormat = "{point.y:,.2f}") %>%
+  hc_tooltip(pointFormat = "<b>{point.y:,.2f}%</b>") %>%
   hc_title(text = ('População de Americana por taxa de dependência')) %>%
   hc_subtitle(text = ('Fonte: Atlas Brasil (2013)')) %>%
   hc_size(NULL, 350) -> h4
