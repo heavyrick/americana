@@ -6,21 +6,33 @@ navbar:
     href: index.html
   - text: "Eleições"
     menu:
-      - text: "Eleições Gerais - 2018"
+      - text: "Eleições Gerais 2018"
         href: eleicoes_2018.html
-      - text: "Eleiões Municipais - 2016"
+      - text: "Eleiões Municipais 2016"
         href: eleicoes_2016.html
+  - text: "Demografia"
+    menu:
+      - text: "Cidade"
+        href: demografia.html
+      - text: "Bairros"
+        href: demografia_bairros.html
+  - text: "Educação"
+    menu:
+      - text: "Cidade"
+        href: educacao.html
+      - text: "Bairros"
+        href: educacao_bairros.html
+  - text: "Economia"
+    menu:
+      - text: "Cidade"
+        href: economia.html
+      - text: "Bairros"
+        href: economia_bairros.html
   right:
   - text: "Indicadores"
     menu:
       - text: "IDM-H Geral"
         href: idhm_geral.html
-      - text: "Demografia"
-        href: demografia.html
-      - text: "Educação"
-        href: educacao.html
-      - text: "Economia"
-        href: economia.html
 exclude: ["data"]
 output_dir: "../docs"
 output:

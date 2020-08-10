@@ -129,7 +129,7 @@ highchart() %>%
   hc_add_series(data= df_rdpc_quintils$rdpc5, name= 'Quinto mais rico') %>%
   hc_xAxis(categories = df_rdpc_quintils$ano) %>%
   hc_tooltip(pointFormat = '<b>R$ {point.y:,.2f}</b>') %>%
-  hc_title(text = 'Distribuição de renda por frações da população de Americana') %>%
+  hc_title(text = 'Renda per capita domiciliar por frações da população de Americana') %>%
   hc_subtitle(text = 'Fonte: Atlas Brasil (2013)') %>%
   hc_add_theme(
     hc_theme_merge(
@@ -146,34 +146,167 @@ Observando o gráfico podemos ver que em todos os casos há um aumento da renda 
 
 O quinto mais rico da cidade teve um aumento de renda em média de mais de **R$ 1.000,00 de 1991 até 2010**, enquanto que o quinto mais pobre teve um aumento de **R$ 87,96 no mesmo período**.
 
+O gráfico abaixo serve como complemento, mostrando o percentual da renda total apropriada pelas seguintes frações da população da cidade: 20%, 40%, 60% e 80% mais pobres, e os 20% e 10% mais ricos.
+
 <br />
 
-```{r econ-05, include=FALSE}
+```{r econ-05, echo=FALSE}
 
-# highchart() %>%
-#   hc_add_series(data= df_rdpc_quintils$rdpc1, name= 'Quinto mais pobre', yAxis = 0) %>%
-#   hc_add_series(data= df_rdpc_quintils$rdpc1_pc, name= '2º Quinto mais pobre %', yAxis = 1, dashStyle = "ShortDash") %>%
-#   hc_add_series(data= df_rdpc_quintils$rdpc2, name= 'Quinto mais pobre', yAxis = 0) %>%
-#   hc_add_series(data= df_rdpc_quintils$rdpc2_pc, name= '2ºQuinto mais pobre %', yAxis = 1, dashStyle = "ShortDash") %>%
-#   hc_yAxis_multiples(
-#      list(opposite = FALSE),
-#      list(offset = 0, height = "75%", showFirstLabel = FALSE, showLastLabel = FALSE, opposite = TRUE)
-#    ) %>% 
-#   hc_xAxis(categories = df_rdpc_quintils$ano) %>%
-#   hc_tooltip(pointFormat = '<b>{point.y:,.2f} %</b>') %>%
-#   hc_title(text = 'Distribuição de renda por frações da população de Americana') %>%
-#   hc_subtitle(text = 'Fonte: Atlas Brasil (2013)') %>%
-#   hc_add_theme(
-#     hc_theme_merge(
-#       hc_theme_flat(), 
-#       hc_theme(colors = viridis(6, begin = 0, option = 'B')))
-#     ) %>%
-#   hc_size(NULL, 500)
+df_distribuicao_renda <- as.data.frame(df_econ_americana[, c('ano', 'pren20', 'pren40', 'pren60', 'pren80', 'pren20ricos', 'pren10ricos')])
+
+highchart() %>%
+  hc_add_series(data= df_distribuicao_renda$pren20, name= '20% mais pobre', marker = list(symbol = 'circle')) %>%
+  hc_add_series(data= df_distribuicao_renda$pren40, name= '40% mais pobre', marker = list(symbol = 'circle')) %>%
+  hc_add_series(data= df_distribuicao_renda$pren60, name= '60% mais pobre', marker = list(symbol = 'circle')) %>%
+  hc_add_series(data= df_distribuicao_renda$pren80, name= '80% mais pobre', marker = list(symbol = 'circle')) %>%
+  hc_add_series(data= df_distribuicao_renda$pren20ricos, name= '20% mais rico', marker = list(symbol = 'square')) %>%
+  hc_add_series(data= df_distribuicao_renda$pren10ricos, name= '10% mais rico', marker = list(symbol = 'square')) %>%
+  hc_xAxis(categories = df_rdpc_quintils$ano) %>%
+  hc_yAxis(max = 100) %>%
+  hc_tooltip(pointFormat = '<b>{point.y:,.2f}%</b>') %>%
+  hc_title(text = 'Distribuição de renda por frações da população de Americana') %>%
+  hc_subtitle(text = 'Fonte: Atlas Brasil (2013)') %>%
+  hc_add_theme(
+    hc_theme_merge(
+      hc_theme_flat(),
+      hc_theme(colors = viridis(7, begin = 0, option = 'B')))
+    ) %>%
+  hc_size(NULL, 450)
 
 ```
 
+### Pobreza
+
+```{r econ-06, echo=FALSE}
+
+anoValores <- function(df){
+  # inicializar
+  ano <- c(); categoria <- c(); valor <- c();
+
+  # Percorre o dataframe e lança os valores para os vetores, que comporão o novo data frame
+  for( i in rownames(df) ){
+    ano_i <- df[i, "ano"]
+    for(n in names(df[i, -c(1:0)])){
+      ano <- append(ano, ano_i) # ano
+      categoria <- append(categoria, n) # ensino
+      for(v in df[i, n]){
+        valor <- append(valor, v) # valor
+      }
+    }
+  }
+  
+  return(as.data.frame(list(ano = ano, categoria = categoria, valor = valor)))
+}
+
+```
+
+<br />
+
+Neste tópico medimos a pobreza na cidade de três maneiras em dois recortes (indivíduos de toda a cidade, apenas às crianças de 14 anos):
+
+- **Extremamente pobres**: Proporção dos indivíduos com renda domiciliar per capita igual ou inferior a R$ 70,00 mensais;
+- **Pobres**: Proporção dos indivíduos com renda domiciliar per capita igual ou inferior a R$ 140,00 mensais;
+- **Vulneráveis à pobreza**: Proporção dos indivíduos com renda domiciliar per capita igual ou inferior a R$ 255,00 mensais (equivalente a 1/2 salário mínimo nessa data).
+
+*Valores em reais de agosto de 2010*
+
+Neste primeiro gráfico, mostramos a proporção de indvíduos em relação ao total da cidade.
+
+<br />
+
+```{r econ-07, fig.show="hold", out.width="100%", echo=FALSE}
+#############################
+df_pobreza <- as.data.frame(df_econ_americana[, c('ano', 'pind', 'pmpob', 'ppob')])
+rownames(df_pobreza) <- NULL
+df_pobreza <- anoValores(df_pobreza)
+
+# Renomear os valores da coluna
+df_pobreza$categoria[df_pobreza$categoria == 'pind' ] <- 'Extremamente pobres'
+df_pobreza$categoria[df_pobreza$categoria == 'pmpob' ] <- 'Pobres'
+df_pobreza$categoria[df_pobreza$categoria == 'ppob' ] <- 'Vulneráveis à pobreza'
+
+df_pobreza %>% 
+  hchart(type="column", hcaes(x= categoria, y= valor, group=ano)) %>%
+  hc_plotOptions(column = list(grouping = TRUE)) %>%  
+  hc_yAxis(max = 30, title = list(enabled = FALSE, labels = list(format ="{value: %b}"))) %>%
+  hc_xAxis(title = list(enabled=FALSE)) %>%
+  hc_tooltip(pointFormat = "<b>{point.y:.,2f}%</b>") %>%
+  hc_title(text = 'Proporção de indivíduos em situação de pobreza em Americana') %>%
+  hc_subtitle(text = "Fonte: Atlas Brasil (2013)") %>%
+  hc_add_theme(hc_theme_flat()) -> ch_1
+
+#############################
+df_pobreza_infantil <- as.data.frame(df_econ_americana[, c('ano', 'pindcri', 'pmpobcri', 'ppobcri')])
+rownames(df_pobreza_infantil) <- NULL
+df_pobreza_infantil <- anoValores(df_pobreza_infantil)
+
+# Renomear os valores da coluna
+df_pobreza_infantil$categoria[df_pobreza_infantil$categoria == 'pindcri' ] <- 'Extremamente pobres'
+df_pobreza_infantil$categoria[df_pobreza_infantil$categoria == 'pmpobcri' ] <- 'Pobres'
+df_pobreza_infantil$categoria[df_pobreza_infantil$categoria == 'ppobcri' ] <- 'Vulneráveis à pobreza'
+
+df_pobreza_infantil %>% 
+  hchart(type="column", hcaes(x= categoria, y= valor, group=ano)) %>%
+  hc_plotOptions(column = list(grouping = TRUE)) %>%  
+  hc_yAxis(max = 30, title = list(enabled = FALSE, labels = list(format ="{value: %b}"))) %>%
+  hc_xAxis(title = list(enabled=FALSE)) %>%
+  hc_tooltip(pointFormat = "<b>{point.y:.,2f}%</b>") %>%
+  hc_title(text = 'Proporção de crianças em situação de pobreza em Americana') %>%
+  hc_subtitle(text = "Fonte: Atlas Brasil (2013)") %>%
+  hc_add_theme(hc_theme_flat()) -> ch_2
+
+# Grid
+hw_grid(ch_1, ch_2, rowheight = 350, ncol = 2)
+
+```
+<br />
+
+O gráfico abaixo mostra a média da renda (em reais de agosto de 2010) domiciliar per capita das pessoas em situação de pobreza.
+
+*Em ambos os gráficos, fiquemos atentos com as escalas: no gráfico acima o eixo vertical máximo está configurado em 30%, mas poderia chegar até 100%. No gráfico abaixo está configurado como valor máximo do eixo R$ 350,00.*
+
+<br />
+
+```{r, out.width="100%", echo=FALSE}
+
+#############################
+df_pobreza_valor <- as.data.frame(df_econ_americana[, c('ano', 'rind', 'rmpob', 'rpob')])
+rownames(df_pobreza_valor) <- NULL
+df_pobreza_valor <- anoValores(df_pobreza_valor)
+
+# Renomear os valores da coluna
+df_pobreza_valor$categoria[df_pobreza_valor$categoria == 'rind' ] <- 'Extremamente pobres'
+df_pobreza_valor$categoria[df_pobreza_valor$categoria == 'rmpob' ] <- 'Pobres'
+df_pobreza_valor$categoria[df_pobreza_valor$categoria == 'rpob' ] <- 'Vulneráveis à pobreza'
+
+df_pobreza_valor %>% 
+  hchart(type="bar", hcaes(x= categoria, y= valor, group=ano)) %>%
+  hc_plotOptions(column = list(grouping = TRUE)) %>%  
+  hc_yAxis(max = 350, title = list(enabled = FALSE)) %>%
+  hc_xAxis(title = list(enabled=FALSE)) %>%
+  hc_tooltip(pointFormat = "R$ <b>{point.y:.,2f}</b>") %>%
+  hc_title(text = 'Renda dos indivíduos em situação de pobreza em Americana') %>%
+  hc_subtitle(text = "Fonte: Atlas Brasil (2013)") %>%
+  hc_add_theme(hc_theme_flat()) %>%
+  hc_size(NULL, 400)
+
+```
+
+### Trabalho
 
 
+```{r, echo=FALSE}
+
+# Rendimento dos ocupados
+df_econ_americana[, c('ano', 'ren0', 'ren1', 'ren2', 'ren3', 'ren5')]
+
+# por áreas
+df_econ_americana[, c('ano', 'p_agro', 'p_com', 'p_constr', 'p_extr', 'p_siup', 'p_serv', 'p_transf')]
+
+# por estudo
+df_econ_americana[, c('ano', 'p_fund', 'p_med', 'p_formal')]
+
+```
 
 
 
